@@ -1,0 +1,13 @@
+# Cached raw upstream artifacts (regenerated on demand; not source of truth)
+data/raw/
+
+__pycache__/
+*.pyc
+.venv/
+.pytest_cache/
+
+# Node (jsdom web test)
+node_modules/
+
+# IDE
+.idea/

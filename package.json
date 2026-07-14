@@ -1,0 +1,13 @@
+{
+  "name": "pytorch-compatibility-webtest",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "jsdom test for the generated interactive picker (docs/index.html).",
+  "scripts": {
+    "test": "node test_html.mjs"
+  },
+  "devDependencies": {
+    "jsdom": "^26.0.0"
+  }
+}

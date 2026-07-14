@@ -1,0 +1,21 @@
+[project]
+name = "pytorch-compatibility"
+version = "0.1.0"
+description = "Deterministically extract a PyTorch / CUDA / compute-capability / Python compatibility table from upstream metadata and build sources, and render an interactive install-command picker."
+readme = "readme.md"
+requires-python = ">=3.11"
+authors = [{ name = "Matěj Račinský", email = "matej.racinsky@gendigital.com" }]
+# Runtime uses only the Python standard library (urllib) so runs are portable and
+# reproducible with no third-party dependencies.
+dependencies = []
+
+[dependency-groups]
+dev = ["pytest>=8.0"]
+
+[tool.uv]
+# This is an application/tool, not a distributable library, so uv should not try
+# to build and install the project itself into the environment.
+package = false
+
+[tool.pytest.ini_options]
+testpaths = ["test_torch_compat.py"]

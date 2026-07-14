@@ -1,0 +1,338 @@
+torch_version,release_date,backend,backend_version,python_min,python_max,pythons,compute_capabilities,arch_list_raw,has_ptx,platforms,on_pypi,version_on_pypi,pypi_linux_default,arch_source_url
+0.1,2023-10-06,default,,2.7,3.5,2.7 3.5,,,False,macos/x86_64,False,False,False,
+0.1.6.post17,2023-10-06,default,,2.7,3.5,2.7 3.5,,,False,linux/x86_64,False,False,False,
+0.1.6.post20,2023-10-09,default,,2.7,3.5,2.7 3.5,,,False,linux/x86_64,False,False,False,
+0.1.6.post22,2023-10-06,default,,2.7,3.5,2.7 3.5,,,False,linux/x86_64 macos/x86_64,False,False,False,
+0.1.7.post2,2023-10-06,default,,2.7,3.6,2.7 3.5 3.6,,,False,linux/x86_64 macos/x86_64,False,False,False,
+0.1.8.post1,2023-10-06,default,,2.7,3.6,2.7 3.5 3.6,,,False,linux/x86_64 macos/x86_64,False,False,False,
+0.1.9.post1,2023-10-06,default,,2.7,3.6,2.7 3.5 3.6,,,False,linux/x86_64 macos/x86_64,False,False,False,
+0.1.9.post2,2023-10-06,default,,2.7,3.6,2.7 3.5 3.6,,,False,linux/x86_64 macos/x86_64,False,False,False,
+0.1.10.post1,2023-10-06,default,,2.7,3.6,2.7 3.5 3.6,,,False,linux/x86_64 macos/x86_64,False,False,False,
+0.1.10.post2,2023-10-09,default,,2.7,3.6,2.7 3.5 3.6,,,False,linux/x86_64,False,False,False,
+0.1.11.post4,2023-10-06,default,,2.7,3.6,2.7 3.5 3.6,,,False,linux/x86_64 macos/x86_64,False,False,False,
+0.1.11.post5,2023-10-06,default,,2.7,3.6,2.7 3.5 3.6,,,False,linux/x86_64 macos/x86_64,False,False,False,
+0.1.12.post1,2023-10-06,default,,2.7,3.6,2.7 3.5 3.6,,,False,linux/x86_64 macos/x86_64,False,False,False,
+0.1.12.post2,2023-10-06,default,,2.7,3.6,2.7 3.5 3.6,,,False,linux/x86_64 macos/x86_64,False,False,False,
+0.2.0.post1,2023-10-06,default,,2.7,3.6,2.7 3.5 3.6,,,False,linux/x86_64 macos/x86_64,False,False,False,
+0.2.0.post2,2023-10-06,default,,2.7,3.6,2.7 3.5 3.6,,,False,linux/x86_64 macos/x86_64,False,False,False,
+0.2.0.post3,2023-10-06,default,,2.7,3.6,2.7 3.5 3.6,,,False,linux/x86_64 macos/x86_64,False,False,False,
+0.3.0,2023-10-06,default,,2.7,3.6,2.7 3.5 3.6,,,False,linux/x86_64 macos/x86_64,False,False,False,
+0.3.0.post2,2023-10-06,default,,2.7,3.6,2.7 3.5 3.6,,,False,linux/x86_64 macos/x86_64,False,False,False,
+0.3.0.post3,2023-10-06,default,,2.7,3.6,2.7 3.5 3.6,,,False,linux/x86_64 macos/x86_64,False,False,False,
+0.3.0.post4,2023-10-05,default,,2.7,3.6,2.7 3.5 3.6,,,False,linux/x86_64 macos/x86_64,False,False,False,
+0.3.1,2023-10-05,default,,2.7,3.6,2.7 3.5 3.6,,,False,linux/x86_64 macos/x86_64,False,False,False,
+0.4.0,2023-10-05,default,,2.7,3.6,2.7 3.5 3.6,,,False,linux/x86_64 macos/x86_64 windows/x86_64,False,False,False,
+0.4.1,2023-10-05,default,,2.7,3.7,2.7 3.5 3.6 3.7,,,False,linux/x86_64 macos/x86_64 windows/x86_64,False,False,False,
+0.4.1.post2,2023-10-05,default,,3.7,3.7,3.7,,,False,linux/x86_64,False,False,False,
+1.0.0,2023-10-05,default,,2.7,3.7,2.7 3.5 3.6 3.7,,,False,linux/x86_64 macos/x86_64 windows/x86_64,True,True,False,
+1.0.1,2023-10-05,default,,2.7,3.7,2.7 3.5 3.6 3.7,,,False,linux/x86_64 macos/x86_64 windows/x86_64,True,True,False,
+1.0.1.post2,2023-10-05,default,,2.7,3.7,2.7 3.5 3.6 3.7,,,False,linux/x86_64,False,False,False,
+1.1.0,2023-10-05,default,,2.7,3.7,2.7 3.5 3.6 3.7,,,False,linux/x86_64 macos/x86_64 windows/x86_64,True,True,False,
+1.1.0.post2,2023-10-05,default,,2.7,3.7,2.7 3.5 3.6 3.7,,,False,macos/x86_64,False,False,False,
+1.2.0,2023-10-06,cpu,,2.7,3.7,2.7 3.5 3.6 3.7,,,False,linux/x86_64 windows/x86_64,False,True,False,
+1.2.0,2023-10-06,cuda,9.2,2.7,3.7,2.7 3.5 3.6 3.7,,,False,linux/x86_64 windows/x86_64,False,True,False,
+1.2.0,2023-10-06,default,,2.7,3.7,2.7 3.5 3.6 3.7,,,False,linux/x86_64 macos/x86_64 windows/x86_64,True,True,False,
+1.3.0,2023-10-06,cpu,,2.7,3.7,2.7 3.5 3.6 3.7,,,False,linux/x86_64 windows/x86_64,False,True,False,
+1.3.0,2023-10-06,cuda,9.2,2.7,3.7,2.7 3.5 3.6 3.7,,,False,linux/x86_64 windows/x86_64,False,True,False,
+1.3.0,2023-10-06,cuda,10.0,2.7,3.7,2.7 3.5 3.6 3.7,,,False,linux/x86_64,False,True,False,
+1.3.0,2023-10-06,default,,2.7,3.7,2.7 3.5 3.6 3.7,,,False,linux/x86_64 macos/x86_64 windows/x86_64,True,True,False,
+1.3.0.post2,2023-10-06,default,,2.7,3.7,2.7 3.5 3.6 3.7,,,False,macos/x86_64,False,False,False,
+1.3.1,2023-10-06,cpu,,2.7,3.7,2.7 3.5 3.6 3.7,,,False,linux/x86_64 windows/x86_64,False,True,False,
+1.3.1,2023-10-06,cuda,9.2,2.7,3.7,2.7 3.5 3.6 3.7,,,False,linux/x86_64 windows/x86_64,False,True,False,
+1.3.1,2023-10-06,cuda,10.0,2.7,3.7,2.7 3.5 3.6 3.7,,,False,linux/x86_64,False,True,False,
+1.3.1,2023-10-06,default,,2.7,3.7,2.7 3.5 3.6 3.7,,,False,linux/x86_64 macos/x86_64 windows/x86_64,True,True,False,
+1.4.0,2023-10-06,cpu,,2.7,3.8,2.7 3.5 3.6 3.7 3.8,,,False,linux/x86_64 windows/x86_64,False,True,False,
+1.4.0,2023-10-06,cuda,9.2,2.7,3.8,2.7 3.5 3.6 3.7 3.8,,,False,linux/x86_64 windows/x86_64,False,True,False,
+1.4.0,2023-10-06,cuda,10.0,2.7,3.8,2.7 3.5 3.6 3.7 3.8,,,False,linux/x86_64,False,True,False,
+1.4.0,2023-10-06,default,,2.7,3.8,2.7 3.5 3.6 3.7 3.8,,,False,linux/x86_64 macos/x86_64 windows/x86_64,True,True,False,
+1.5.0,2023-10-06,cpu,,2.7,3.8,2.7 3.5 3.6 3.7 3.8,,,False,linux/x86_64 windows/x86_64,False,True,False,
+1.5.0,2023-10-06,cuda,9.2,2.7,3.8,2.7 3.5 3.6 3.7 3.8,,,False,linux/x86_64 windows/x86_64,False,True,False,
+1.5.0,2023-10-06,cuda,10.1,3.5,3.8,3.5 3.6 3.7 3.8,,,False,linux/x86_64 windows/x86_64,False,True,False,
+1.5.0,2023-10-06,default,,2.7,3.8,2.7 3.5 3.6 3.7 3.8,,,False,linux/x86_64 macos/x86_64 windows/x86_64,True,True,False,
+1.5.1,2023-10-06,cpu,,3.5,3.8,3.5 3.6 3.7 3.8,,,False,linux/x86_64 windows/x86_64,False,True,False,
+1.5.1,2023-10-06,cuda,9.2,3.5,3.8,3.5 3.6 3.7 3.8,,,False,linux/x86_64 windows/x86_64,False,True,False,
+1.5.1,2023-10-06,cuda,10.1,3.5,3.8,3.5 3.6 3.7 3.8,,,False,linux/x86_64 windows/x86_64,False,True,False,
+1.5.1,2023-10-06,default,,3.5,3.8,3.5 3.6 3.7 3.8,,,False,linux/x86_64 macos/x86_64 windows/x86_64,True,True,False,
+1.6.0,2023-10-06,cpu,,3.6,3.8,3.6 3.7 3.8,,,False,linux/x86_64 windows/x86_64,False,True,False,
+1.6.0,2023-10-06,cuda,9.2,3.6,3.8,3.6 3.7 3.8,,,False,linux/x86_64,False,True,False,
+1.6.0,2023-10-06,cuda,10.1,3.6,3.8,3.6 3.7 3.8,,,False,linux/x86_64 windows/x86_64,False,True,False,
+1.6.0,2023-10-06,default,,3.6,3.8,3.6 3.7 3.8,,,False,linux/x86_64 macos/x86_64 windows/x86_64,True,True,False,
+1.7.0,2023-10-06,cpu,,3.6,3.8,3.6 3.7 3.8,,,False,linux/x86_64 windows/x86_64,False,True,False,
+1.7.0,2023-10-06,cuda,9.2,3.6,3.8,3.6 3.7 3.8,,,False,linux/x86_64,False,True,False,
+1.7.0,2023-10-06,cuda,10.1,3.6,3.8,3.6 3.7 3.8,,,False,linux/x86_64 windows/x86_64,False,True,False,
+1.7.0,2023-10-06,cuda,11.0,3.6,3.8,3.6 3.7 3.8,,,False,linux/x86_64 windows/x86_64,False,True,False,
+1.7.0,2023-10-06,default,,3.6,3.8,3.6 3.7 3.8,,,False,linux/x86_64 macos/x86_64 windows/x86_64,True,True,False,
+1.7.1,2023-10-06,cpu,,3.6,3.9,3.6 3.7 3.8 3.9,,,False,linux/x86_64 windows/x86_64,False,True,False,
+1.7.1,2023-10-06,cuda,9.2,3.6,3.9,3.6 3.7 3.8 3.9,,,False,linux/x86_64,False,True,False,
+1.7.1,2023-10-06,cuda,10.1,3.6,3.9,3.6 3.7 3.8 3.9,,,False,linux/x86_64 windows/x86_64,False,True,False,
+1.7.1,2023-10-06,cuda,11.0,3.6,3.9,3.6 3.7 3.8 3.9,,,False,linux/x86_64 windows/x86_64,False,True,False,
+1.7.1,2023-10-06,default,,3.6,3.9,3.6 3.7 3.8 3.9,,,False,linux/aarch64 linux/x86_64 macos/x86_64 windows/x86_64,True,True,False,
+1.7.1,2023-10-06,rocm,3.7,3.6,3.9,3.6 3.7 3.8 3.9,,,False,linux/x86_64,False,True,False,
+1.7.1,2023-10-06,rocm,3.8,3.6,3.9,3.6 3.7 3.8 3.9,,,False,linux/x86_64,False,True,False,
+1.8.0,2023-10-06,cpu,,3.6,3.9,3.6 3.7 3.8 3.9,,,False,linux/x86_64 windows/x86_64,False,True,False,
+1.8.0,2023-10-06,cuda,10.1,3.6,3.9,3.6 3.7 3.8 3.9,,,False,linux/x86_64 windows/x86_64,False,True,False,
+1.8.0,2023-10-06,cuda,11.1,3.6,3.9,3.6 3.7 3.8 3.9,,,False,linux/x86_64 windows/x86_64,False,True,False,
+1.8.0,2023-10-06,default,,3.6,3.9,3.6 3.7 3.8 3.9,,,False,linux/aarch64 linux/x86_64 macos/arm64 macos/x86_64 windows/x86_64,True,True,False,
+1.8.0,2023-10-06,rocm,3.10,3.6,3.9,3.6 3.7 3.8 3.9,,,False,linux/x86_64,False,True,False,
+1.8.0,2023-10-06,rocm,4.0.1,3.6,3.9,3.6 3.7 3.8 3.9,,,False,linux/x86_64,False,True,False,
+1.8.1,2023-10-06,cpu,,3.6,3.9,3.6 3.7 3.8 3.9,,,False,linux/x86_64 windows/x86_64,False,True,False,
+1.8.1,2023-10-06,cuda,10.1,3.6,3.9,3.6 3.7 3.8 3.9,,,False,linux/x86_64 windows/x86_64,False,True,False,
+1.8.1,2023-10-06,cuda,10.2,3.6,3.9,3.6 3.7 3.8 3.9,,,False,linux/x86_64 windows/x86_64,False,True,False,
+1.8.1,2023-10-06,cuda,11.1,3.6,3.9,3.6 3.7 3.8 3.9,,,False,linux/x86_64 windows/x86_64,False,True,False,
+1.8.1,2023-10-06,default,,3.6,3.9,3.6 3.7 3.8 3.9,,,False,linux/aarch64 macos/arm64 macos/x86_64,True,True,False,
+1.8.1,2023-10-06,rocm,3.10,3.6,3.9,3.6 3.7 3.8 3.9,,,False,linux/x86_64,False,True,False,
+1.8.1,2023-10-06,rocm,4.0.1,3.6,3.9,3.6 3.7 3.8 3.9,,,False,linux/x86_64,False,True,False,
+1.9.0,2023-10-06,cpu,,3.6,3.9,3.6 3.7 3.8 3.9,,,False,linux/x86_64 windows/x86_64,False,True,False,
+1.9.0,2023-10-06,cuda,10.2,3.6,3.9,3.6 3.7 3.8 3.9,3.7;5.0;6.0;7.0,3.7;5.0;6.0;7.0,False,linux/x86_64 windows/x86_64,False,True,False,https://raw.githubusercontent.com/pytorch/builder/release/1.9/manywheel/build.sh
+1.9.0,2023-10-06,cuda,11.1,3.6,3.9,3.6 3.7 3.8 3.9,3.7;5.0;6.0;7.0;7.5;8.0;8.6,3.7;5.0;6.0;7.0;7.5;8.0;8.6,False,linux/x86_64 windows/x86_64,False,True,False,https://raw.githubusercontent.com/pytorch/builder/release/1.9/manywheel/build.sh
+1.9.0,2023-10-06,default,,3.6,3.9,3.6 3.7 3.8 3.9,,,False,linux/aarch64 macos/arm64 macos/x86_64,True,True,False,
+1.9.0,2023-10-06,rocm,4.0.1,3.6,3.9,3.6 3.7 3.8 3.9,,,False,linux/x86_64,False,True,False,
+1.9.0,2023-10-06,rocm,4.1,3.6,3.9,3.6 3.7 3.8 3.9,,,False,linux/x86_64,False,True,False,
+1.9.0,2023-10-06,rocm,4.2,3.6,3.9,3.6 3.7 3.8 3.9,,,False,linux/x86_64,False,True,False,
+1.9.1,2023-10-06,cpu,,3.6,3.9,3.6 3.7 3.8 3.9,,,False,linux/x86_64 windows/x86_64,False,True,False,
+1.9.1,2023-10-06,cuda,10.2,3.6,3.9,3.6 3.7 3.8 3.9,3.7;5.0;6.0;7.0,3.7;5.0;6.0;7.0,False,linux/x86_64 windows/x86_64,False,True,False,https://raw.githubusercontent.com/pytorch/builder/release/1.9/manywheel/build.sh
+1.9.1,2023-10-06,cuda,11.1,3.6,3.9,3.6 3.7 3.8 3.9,3.7;5.0;6.0;7.0;7.5;8.0;8.6,3.7;5.0;6.0;7.0;7.5;8.0;8.6,False,linux/x86_64 windows/x86_64,False,True,False,https://raw.githubusercontent.com/pytorch/builder/release/1.9/manywheel/build.sh
+1.9.1,2023-10-06,default,,3.6,3.9,3.6 3.7 3.8 3.9,,,False,macos/arm64 macos/x86_64,True,True,False,
+1.9.1,2023-10-06,rocm,4.0.1,3.6,3.9,3.6 3.7 3.8 3.9,,,False,linux/x86_64,False,True,False,
+1.9.1,2023-10-06,rocm,4.1,3.6,3.9,3.6 3.7 3.8 3.9,,,False,linux/x86_64,False,True,False,
+1.9.1,2023-10-06,rocm,4.2,3.6,3.9,3.6 3.7 3.8 3.9,,,False,linux/x86_64,False,True,False,
+1.10.0,2023-10-05,cpu,,3.6,3.9,3.6 3.7 3.8 3.9,,,False,linux/x86_64 windows/x86_64,False,True,False,
+1.10.0,2023-10-05,cuda,10.2,3.6,3.9,3.6 3.7 3.8 3.9,3.7;5.0;6.0;7.0,3.7;5.0;6.0;7.0,False,linux/x86_64 windows/x86_64,False,True,False,https://raw.githubusercontent.com/pytorch/builder/release/1.10/manywheel/build.sh
+1.10.0,2023-10-05,cuda,11.1,3.6,3.9,3.6 3.7 3.8 3.9,3.7;5.0;6.0;7.0;7.5;8.0;8.6,3.7;5.0;6.0;7.0;7.5;8.0;8.6,False,linux/x86_64 windows/x86_64,False,True,False,https://raw.githubusercontent.com/pytorch/builder/release/1.10/manywheel/build.sh
+1.10.0,2023-10-05,cuda,11.3,3.6,3.9,3.6 3.7 3.8 3.9,3.7;5.0;6.0;7.0;7.5;8.0;8.6,3.7;5.0;6.0;7.0;7.5;8.0;8.6,False,linux/x86_64 windows/x86_64,False,True,False,https://raw.githubusercontent.com/pytorch/builder/release/1.10/manywheel/build.sh
+1.10.0,2023-10-05,default,,3.6,3.9,3.6 3.7 3.8 3.9,,,False,linux/aarch64 macos/arm64 macos/x86_64,True,True,False,
+1.10.0,2023-10-05,rocm,4.0.1,3.6,3.9,3.6 3.7 3.8 3.9,,,False,linux/x86_64,False,True,False,
+1.10.0,2023-10-05,rocm,4.1,3.6,3.9,3.6 3.7 3.8 3.9,,,False,linux/x86_64,False,True,False,
+1.10.0,2023-10-05,rocm,4.2,3.6,3.9,3.6 3.7 3.8 3.9,,,False,linux/x86_64,False,True,False,
+1.10.1,2023-10-05,cpu,,3.6,3.9,3.6 3.7 3.8 3.9,,,False,linux/x86_64 windows/x86_64,False,True,False,
+1.10.1,2023-10-05,cuda,10.2,3.6,3.9,3.6 3.7 3.8 3.9,3.7;5.0;6.0;7.0,3.7;5.0;6.0;7.0,False,linux/x86_64 windows/x86_64,False,True,False,https://raw.githubusercontent.com/pytorch/builder/release/1.10/manywheel/build.sh
+1.10.1,2023-10-05,cuda,11.1,3.6,3.9,3.6 3.7 3.8 3.9,3.7;5.0;6.0;7.0;7.5;8.0;8.6,3.7;5.0;6.0;7.0;7.5;8.0;8.6,False,linux/x86_64 windows/x86_64,False,True,False,https://raw.githubusercontent.com/pytorch/builder/release/1.10/manywheel/build.sh
+1.10.1,2023-10-05,cuda,11.3,3.6,3.9,3.6 3.7 3.8 3.9,3.7;5.0;6.0;7.0;7.5;8.0;8.6,3.7;5.0;6.0;7.0;7.5;8.0;8.6,False,linux/x86_64 windows/x86_64,False,True,False,https://raw.githubusercontent.com/pytorch/builder/release/1.10/manywheel/build.sh
+1.10.1,2023-10-05,default,,3.6,3.9,3.6 3.7 3.8 3.9,,,False,linux/aarch64 macos/arm64 macos/x86_64,True,True,False,
+1.10.1,2023-10-05,rocm,4.0.1,3.6,3.9,3.6 3.7 3.8 3.9,,,False,linux/x86_64,False,True,False,
+1.10.1,2023-10-05,rocm,4.1,3.6,3.9,3.6 3.7 3.8 3.9,,,False,linux/x86_64,False,True,False,
+1.10.1,2023-10-05,rocm,4.2,3.6,3.9,3.6 3.7 3.8 3.9,,,False,linux/x86_64,False,True,False,
+1.10.2,2023-10-05,cpu,,3.6,3.9,3.6 3.7 3.8 3.9,,,False,linux/x86_64 windows/x86_64,False,True,False,
+1.10.2,2023-10-05,cuda,10.2,3.6,3.9,3.6 3.7 3.8 3.9,3.7;5.0;6.0;7.0,3.7;5.0;6.0;7.0,False,linux/x86_64 windows/x86_64,False,True,False,https://raw.githubusercontent.com/pytorch/builder/release/1.10/manywheel/build.sh
+1.10.2,2023-10-05,cuda,11.1,3.6,3.9,3.6 3.7 3.8 3.9,3.7;5.0;6.0;7.0;7.5;8.0;8.6,3.7;5.0;6.0;7.0;7.5;8.0;8.6,False,linux/x86_64 windows/x86_64,False,True,False,https://raw.githubusercontent.com/pytorch/builder/release/1.10/manywheel/build.sh
+1.10.2,2023-10-05,cuda,11.3,3.6,3.9,3.6 3.7 3.8 3.9,3.7;5.0;6.0;7.0;7.5;8.0;8.6,3.7;5.0;6.0;7.0;7.5;8.0;8.6,False,linux/x86_64 windows/x86_64,False,True,False,https://raw.githubusercontent.com/pytorch/builder/release/1.10/manywheel/build.sh
+1.10.2,2023-10-05,default,,3.6,3.10,3.6 3.7 3.8 3.9 3.10,,,False,linux/aarch64 macos/arm64 macos/x86_64,True,True,False,
+1.10.2,2023-10-05,rocm,4.0.1,3.6,3.9,3.6 3.7 3.8 3.9,,,False,linux/x86_64,False,True,False,
+1.10.2,2023-10-05,rocm,4.1,3.6,3.9,3.6 3.7 3.8 3.9,,,False,linux/x86_64,False,True,False,
+1.10.2,2023-10-05,rocm,4.2,3.6,3.9,3.6 3.7 3.8 3.9,,,False,linux/x86_64,False,True,False,
+1.11.0,2023-10-06,cpu,,3.7,3.10,3.7 3.8 3.9 3.10,,,False,linux/x86_64 windows/x86_64,False,True,False,
+1.11.0,2023-10-06,cuda,10.2,3.7,3.10,3.7 3.8 3.9 3.10,3.7;5.0;6.0;7.0,3.7;5.0;6.0;7.0,False,linux/x86_64,False,True,False,https://raw.githubusercontent.com/pytorch/builder/release/1.11/manywheel/build_cuda.sh
+1.11.0,2023-10-06,cuda,11.3,3.7,3.10,3.7 3.8 3.9 3.10,3.7;5.0;6.0;7.0;7.5;8.0;8.6,3.7;5.0;6.0;7.0;7.5;8.0;8.6,False,linux/x86_64 windows/x86_64,False,True,False,https://raw.githubusercontent.com/pytorch/builder/release/1.11/manywheel/build_cuda.sh
+1.11.0,2023-10-06,cuda,11.5,3.7,3.10,3.7 3.8 3.9 3.10,3.7;5.0;6.0;7.0;7.5;8.0;8.6,3.7;5.0;6.0;7.0;7.5;8.0;8.6,False,linux/x86_64 windows/x86_64,False,True,False,https://raw.githubusercontent.com/pytorch/builder/release/1.11/manywheel/build_cuda.sh
+1.11.0,2023-10-06,default,,3.7,3.10,3.7 3.8 3.9 3.10,,,False,linux/aarch64 macos/arm64 macos/x86_64,True,True,False,
+1.11.0,2023-10-06,rocm,4.3.1,3.7,3.10,3.7 3.8 3.9 3.10,,,False,linux/x86_64,False,True,False,
+1.11.0,2023-10-06,rocm,4.5.2,3.7,3.10,3.7 3.8 3.9 3.10,,,False,linux/x86_64,False,True,False,
+1.12.0,2023-10-06,cpu,,3.7,3.10,3.7 3.8 3.9 3.10,,,False,linux/x86_64 windows/x86_64,False,True,False,
+1.12.0,2023-10-06,cuda,10.2,3.7,3.10,3.7 3.8 3.9 3.10,3.7;5.0;6.0;7.0,3.7;5.0;6.0;7.0,False,linux/x86_64,False,True,False,https://raw.githubusercontent.com/pytorch/builder/release/1.12/manywheel/build_cuda.sh
+1.12.0,2023-10-06,cuda,11.3,3.7,3.10,3.7 3.8 3.9 3.10,3.7;5.0;6.0;7.0;7.5;8.0;8.6,3.7;5.0;6.0;7.0;7.5;8.0;8.6,False,linux/x86_64 windows/x86_64,False,True,False,https://raw.githubusercontent.com/pytorch/builder/release/1.12/manywheel/build_cuda.sh
+1.12.0,2023-10-06,cuda,11.6,3.7,3.10,3.7 3.8 3.9 3.10,3.7;5.0;6.0;7.0;7.5;8.0;8.6,3.7;5.0;6.0;7.0;7.5;8.0;8.6,False,linux/x86_64 windows/x86_64,False,True,False,https://raw.githubusercontent.com/pytorch/builder/release/1.12/manywheel/build_cuda.sh
+1.12.0,2023-10-06,default,,3.7,3.10,3.7 3.8 3.9 3.10,,,False,linux/aarch64 macos/arm64 macos/x86_64,True,True,False,
+1.12.0,2023-10-06,rocm,5.0,3.7,3.10,3.7 3.8 3.9 3.10,,,False,linux/x86_64,False,True,False,
+1.12.0,2023-10-06,rocm,5.1.1,3.7,3.10,3.7 3.8 3.9 3.10,,,False,linux/x86_64,False,True,False,
+1.12.1,2023-10-06,cpu,,3.7,3.10,3.7 3.8 3.9 3.10,,,False,linux/x86_64 windows/x86_64,False,True,False,
+1.12.1,2023-10-06,cuda,10.2,3.7,3.10,3.7 3.8 3.9 3.10,3.7;5.0;6.0;7.0,3.7;5.0;6.0;7.0,False,linux/x86_64,False,True,False,https://raw.githubusercontent.com/pytorch/builder/release/1.12/manywheel/build_cuda.sh
+1.12.1,2023-10-06,cuda,11.3,3.7,3.10,3.7 3.8 3.9 3.10,3.7;5.0;6.0;7.0;7.5;8.0;8.6,3.7;5.0;6.0;7.0;7.5;8.0;8.6,False,linux/x86_64 windows/x86_64,False,True,False,https://raw.githubusercontent.com/pytorch/builder/release/1.12/manywheel/build_cuda.sh
+1.12.1,2023-10-06,cuda,11.6,3.7,3.10,3.7 3.8 3.9 3.10,3.7;5.0;6.0;7.0;7.5;8.0;8.6,3.7;5.0;6.0;7.0;7.5;8.0;8.6,False,linux/x86_64 windows/x86_64,False,True,False,https://raw.githubusercontent.com/pytorch/builder/release/1.12/manywheel/build_cuda.sh
+1.12.1,2023-10-06,default,,3.7,3.10,3.7 3.8 3.9 3.10,,,False,linux/aarch64 macos/arm64 macos/x86_64,True,True,False,
+1.12.1,2023-10-06,rocm,5.0,3.7,3.10,3.7 3.8 3.9 3.10,,,False,linux/x86_64,False,True,False,
+1.12.1,2023-10-06,rocm,5.1.1,3.7,3.10,3.7 3.8 3.9 3.10,,,False,linux/x86_64,False,True,False,
+1.13.0,2023-10-06,cpu,,3.7,3.11,3.7 3.8 3.9 3.10 3.11,,,False,linux/x86_64 windows/x86_64,False,True,False,
+1.13.0,2023-10-06,cuda,11.6,3.7,3.11,3.7 3.8 3.9 3.10 3.11,3.7;5.0;6.0;7.0;7.5;8.0;8.6,3.7;5.0;6.0;7.0;7.5;8.0;8.6,False,linux/x86_64 windows/x86_64,False,True,False,https://raw.githubusercontent.com/pytorch/builder/release/1.13/manywheel/build_cuda.sh
+1.13.0,2023-10-06,cuda,11.7,3.7,3.11,3.7 3.8 3.9 3.10 3.11,3.7;5.0;6.0;7.0;7.5;8.0;8.6,3.7;5.0;6.0;7.0;7.5;8.0;8.6,False,linux/x86_64 windows/x86_64,False,True,True,https://raw.githubusercontent.com/pytorch/builder/release/1.13/manywheel/build_cuda.sh
+1.13.0,2023-10-06,default,,3.7,3.10,3.7 3.8 3.9 3.10,,,False,linux/aarch64 macos/arm64 macos/x86_64,True,True,False,
+1.13.0,2023-10-06,rocm,5.1.1,3.7,3.10,3.7 3.8 3.9 3.10,,,False,linux/x86_64,False,True,False,
+1.13.0,2023-10-06,rocm,5.2,3.7,3.10,3.7 3.8 3.9 3.10,,,False,linux/x86_64,False,True,False,
+1.13.1,2023-10-06,cpu,,3.7,3.11,3.7 3.8 3.9 3.10 3.11,,,False,linux/x86_64 windows/x86_64,False,True,False,
+1.13.1,2023-10-06,cuda,11.6,3.7,3.11,3.7 3.8 3.9 3.10 3.11,3.7;5.0;6.0;7.0;7.5;8.0;8.6,3.7;5.0;6.0;7.0;7.5;8.0;8.6,False,linux/x86_64 windows/x86_64,False,True,False,https://raw.githubusercontent.com/pytorch/builder/release/1.13/manywheel/build_cuda.sh
+1.13.1,2023-10-06,cuda,11.7,3.7,3.11,3.7 3.8 3.9 3.10 3.11,3.7;5.0;6.0;7.0;7.5;8.0;8.6,3.7;5.0;6.0;7.0;7.5;8.0;8.6,False,linux/x86_64 windows/x86_64,False,True,True,https://raw.githubusercontent.com/pytorch/builder/release/1.13/manywheel/build_cuda.sh
+1.13.1,2023-10-06,default,,3.7,3.10,3.7 3.8 3.9 3.10,,,False,linux/aarch64 macos/arm64 macos/x86_64,True,True,False,
+1.13.1,2023-10-06,rocm,5.1.1,3.7,3.10,3.7 3.8 3.9 3.10,,,False,linux/x86_64,False,True,False,
+1.13.1,2023-10-06,rocm,5.2,3.7,3.10,3.7 3.8 3.9 3.10,,,False,linux/x86_64,False,True,False,
+2.0.0,2023-10-06,cpu,,3.8,3.11,3.8 3.9 3.10 3.11,,,False,linux/x86_64 windows/x86_64,False,True,False,
+2.0.0,2023-10-06,cuda,11.7,3.8,3.11,3.8 3.9 3.10 3.11,3.7;5.0;6.0;7.0;7.5;8.0;8.6,3.7;5.0;6.0;7.0;7.5;8.0;8.6,False,linux/x86_64 windows/x86_64,False,True,True,https://raw.githubusercontent.com/pytorch/builder/release/2.0/manywheel/build_cuda.sh
+2.0.0,2023-10-06,cuda,11.8,3.8,3.11,3.8 3.9 3.10 3.11,3.7;5.0;6.0;7.0;7.5;8.0;8.6;9.0,3.7;5.0;6.0;7.0;7.5;8.0;8.6;9.0,False,linux/x86_64 windows/x86_64,False,True,False,https://raw.githubusercontent.com/pytorch/builder/release/2.0/manywheel/build_cuda.sh
+2.0.0,2023-10-06,default,,3.8,3.11,3.8 3.9 3.10 3.11,,,False,linux/aarch64 macos/arm64 macos/x86_64,True,True,False,
+2.0.0,2023-10-06,rocm,5.3,3.8,3.10,3.8 3.9 3.10,,,False,linux/x86_64,False,True,False,
+2.0.0,2023-10-06,rocm,5.4.2,3.8,3.10,3.8 3.9 3.10,,,False,linux/x86_64,False,True,False,
+2.0.1,2023-10-06,cpu,,3.8,3.11,3.8 3.9 3.10 3.11,,,False,linux/x86_64 windows/x86_64,False,True,False,
+2.0.1,2023-10-06,cuda,11.7,3.8,3.11,3.8 3.9 3.10 3.11,3.7;5.0;6.0;7.0;7.5;8.0;8.6,3.7;5.0;6.0;7.0;7.5;8.0;8.6,False,linux/x86_64 windows/x86_64,False,True,True,https://raw.githubusercontent.com/pytorch/builder/release/2.0/manywheel/build_cuda.sh
+2.0.1,2023-10-06,cuda,11.8,3.8,3.11,3.8 3.9 3.10 3.11,3.7;5.0;6.0;7.0;7.5;8.0;8.6;9.0,3.7;5.0;6.0;7.0;7.5;8.0;8.6;9.0,False,linux/x86_64 windows/x86_64,False,True,False,https://raw.githubusercontent.com/pytorch/builder/release/2.0/manywheel/build_cuda.sh
+2.0.1,2023-10-06,default,,3.8,3.11,3.8 3.9 3.10 3.11,,,False,linux/aarch64 macos/arm64 macos/x86_64,True,True,False,
+2.0.1,2023-10-06,rocm,5.3,3.8,3.11,3.8 3.9 3.10 3.11,,,False,linux/x86_64,False,True,False,
+2.0.1,2023-10-06,rocm,5.4.2,3.8,3.11,3.8 3.9 3.10 3.11,,,False,linux/x86_64,False,True,False,
+2.1.0,2023-10-06,cpu,,3.8,3.11,3.8 3.9 3.10 3.11,,,False,linux/x86_64 windows/x86_64,False,True,False,
+2.1.0,2023-10-06,cuda,11.8,3.8,3.11,3.8 3.9 3.10 3.11,3.7;5.0;6.0;7.0;7.5;8.0;8.6;9.0,5.0;6.0;7.0;7.5;8.0;8.6;3.7;9.0,False,linux/x86_64 windows/x86_64,False,True,False,https://raw.githubusercontent.com/pytorch/builder/release/2.1/manywheel/build_cuda.sh
+2.1.0,2023-10-06,cuda,12.1,3.8,3.11,3.8 3.9 3.10 3.11,5.0;6.0;7.0;7.5;8.0;8.6;9.0,5.0;6.0;7.0;7.5;8.0;8.6;9.0,False,linux/x86_64 windows/x86_64,False,True,True,https://raw.githubusercontent.com/pytorch/builder/release/2.1/manywheel/build_cuda.sh
+2.1.0,2023-10-06,default,,3.8,3.11,3.8 3.9 3.10 3.11,,,False,linux/aarch64 macos/arm64 macos/x86_64,True,True,False,
+2.1.0,2023-10-06,rocm,5.5,3.8,3.11,3.8 3.9 3.10 3.11,,,False,linux/x86_64,False,True,False,
+2.1.0,2023-10-06,rocm,5.6,3.8,3.11,3.8 3.9 3.10 3.11,,,False,linux/x86_64,False,True,False,
+2.1.1,2023-11-15,cpu,,3.8,3.11,3.8 3.9 3.10 3.11,,,False,linux/x86_64 windows/x86_64,False,True,False,
+2.1.1,2023-11-15,cuda,11.8,3.8,3.11,3.8 3.9 3.10 3.11,3.7;5.0;6.0;7.0;7.5;8.0;8.6;9.0,5.0;6.0;7.0;7.5;8.0;8.6;3.7;9.0,False,linux/x86_64 windows/x86_64,False,True,False,https://raw.githubusercontent.com/pytorch/builder/release/2.1/manywheel/build_cuda.sh
+2.1.1,2023-11-15,cuda,12.1,3.8,3.11,3.8 3.9 3.10 3.11,5.0;6.0;7.0;7.5;8.0;8.6;9.0,5.0;6.0;7.0;7.5;8.0;8.6;9.0,False,linux/x86_64 windows/x86_64,False,True,True,https://raw.githubusercontent.com/pytorch/builder/release/2.1/manywheel/build_cuda.sh
+2.1.1,2023-11-15,default,,3.8,3.11,3.8 3.9 3.10 3.11,,,False,linux/aarch64 macos/arm64 macos/x86_64,True,True,False,
+2.1.1,2023-11-15,rocm,5.5,3.8,3.11,3.8 3.9 3.10 3.11,,,False,linux/x86_64,False,True,False,
+2.1.1,2023-11-15,rocm,5.6,3.8,3.11,3.8 3.9 3.10 3.11,,,False,linux/x86_64,False,True,False,
+2.1.2,2024-01-29,cpu,,3.8,3.11,3.8 3.9 3.10 3.11,,,False,linux/x86_64 windows/x86_64,False,True,False,
+2.1.2,2024-01-29,cuda,11.8,3.8,3.11,3.8 3.9 3.10 3.11,3.7;5.0;6.0;7.0;7.5;8.0;8.6;9.0,5.0;6.0;7.0;7.5;8.0;8.6;3.7;9.0,False,linux/x86_64 windows/x86_64,False,True,False,https://raw.githubusercontent.com/pytorch/builder/release/2.1/manywheel/build_cuda.sh
+2.1.2,2024-01-29,cuda,12.1,3.8,3.11,3.8 3.9 3.10 3.11,5.0;6.0;7.0;7.5;8.0;8.6;9.0,5.0;6.0;7.0;7.5;8.0;8.6;9.0,False,linux/x86_64 windows/x86_64,False,True,True,https://raw.githubusercontent.com/pytorch/builder/release/2.1/manywheel/build_cuda.sh
+2.1.2,2024-01-29,default,,3.8,3.11,3.8 3.9 3.10 3.11,,,False,linux/aarch64 macos/arm64 macos/x86_64,True,True,False,
+2.1.2,2024-01-29,rocm,5.5,3.8,3.11,3.8 3.9 3.10 3.11,,,False,linux/x86_64,False,True,False,
+2.1.2,2024-01-29,rocm,5.6,3.8,3.11,3.8 3.9 3.10 3.11,,,False,linux/x86_64,False,True,False,
+2.2.0,2024-01-29,cpu,,3.8,3.12,3.8 3.9 3.10 3.11 3.12,,,False,linux/x86_64 windows/x86_64,False,True,False,
+2.2.0,2024-01-29,cuda,11.8,3.8,3.12,3.8 3.9 3.10 3.11 3.12,3.7;5.0;6.0;7.0;7.5;8.0;8.6;9.0,5.0;6.0;7.0;7.5;8.0;8.6;3.7;9.0,False,linux/x86_64 windows/x86_64,False,True,False,https://raw.githubusercontent.com/pytorch/builder/release/2.2/manywheel/build_cuda.sh
+2.2.0,2024-01-29,cuda,12.1,3.8,3.12,3.8 3.9 3.10 3.11 3.12,5.0;6.0;7.0;7.5;8.0;8.6;9.0,5.0;6.0;7.0;7.5;8.0;8.6;9.0,False,linux/x86_64 windows/x86_64,False,True,True,https://raw.githubusercontent.com/pytorch/builder/release/2.2/manywheel/build_cuda.sh
+2.2.0,2024-01-29,default,,3.8,3.12,3.8 3.9 3.10 3.11 3.12,,,False,linux/aarch64 macos/arm64 macos/x86_64,True,True,False,
+2.2.0,2024-01-29,rocm,5.6,3.8,3.12,3.8 3.9 3.10 3.11 3.12,,,False,linux/x86_64,False,True,False,
+2.2.0,2024-01-29,rocm,5.7,3.8,3.12,3.8 3.9 3.10 3.11 3.12,,,False,linux/x86_64,False,True,False,
+2.2.1,2024-03-18,cpu,,3.8,3.12,3.8 3.9 3.10 3.11 3.12,,,False,linux/x86_64 windows/x86_64,False,True,False,
+2.2.1,2024-03-18,cuda,11.8,3.8,3.12,3.8 3.9 3.10 3.11 3.12,3.7;5.0;6.0;7.0;7.5;8.0;8.6;9.0,5.0;6.0;7.0;7.5;8.0;8.6;3.7;9.0,False,linux/x86_64 windows/x86_64,False,True,False,https://raw.githubusercontent.com/pytorch/builder/release/2.2/manywheel/build_cuda.sh
+2.2.1,2024-03-18,cuda,12.1,3.8,3.12,3.8 3.9 3.10 3.11 3.12,5.0;6.0;7.0;7.5;8.0;8.6;9.0,5.0;6.0;7.0;7.5;8.0;8.6;9.0,False,linux/x86_64 windows/x86_64,False,True,True,https://raw.githubusercontent.com/pytorch/builder/release/2.2/manywheel/build_cuda.sh
+2.2.1,2024-03-18,default,,3.8,3.12,3.8 3.9 3.10 3.11 3.12,,,False,linux/aarch64 macos/arm64 macos/x86_64,True,True,False,
+2.2.1,2024-03-18,rocm,5.6,3.8,3.12,3.8 3.9 3.10 3.11 3.12,,,False,linux/x86_64,False,True,False,
+2.2.1,2024-03-18,rocm,5.7,3.8,3.12,3.8 3.9 3.10 3.11 3.12,,,False,linux/x86_64,False,True,False,
+2.2.2,2024-03-28,cpu,,3.8,3.12,3.8 3.9 3.10 3.11 3.12,,,False,linux/x86_64 windows/x86_64,False,True,False,
+2.2.2,2024-03-28,cuda,11.8,3.8,3.12,3.8 3.9 3.10 3.11 3.12,3.7;5.0;6.0;7.0;7.5;8.0;8.6;9.0,5.0;6.0;7.0;7.5;8.0;8.6;3.7;9.0,False,linux/x86_64 windows/x86_64,False,True,False,https://raw.githubusercontent.com/pytorch/builder/release/2.2/manywheel/build_cuda.sh
+2.2.2,2024-03-28,cuda,12.1,3.8,3.12,3.8 3.9 3.10 3.11 3.12,5.0;6.0;7.0;7.5;8.0;8.6;9.0,5.0;6.0;7.0;7.5;8.0;8.6;9.0,False,linux/x86_64 windows/x86_64,False,True,True,https://raw.githubusercontent.com/pytorch/builder/release/2.2/manywheel/build_cuda.sh
+2.2.2,2024-03-28,default,,3.8,3.12,3.8 3.9 3.10 3.11 3.12,,,False,linux/aarch64 macos/arm64 macos/x86_64,True,True,False,
+2.2.2,2024-03-28,rocm,5.6,3.8,3.12,3.8 3.9 3.10 3.11 3.12,,,False,linux/x86_64,False,True,False,
+2.2.2,2024-03-28,rocm,5.7,3.8,3.12,3.8 3.9 3.10 3.11 3.12,,,False,linux/x86_64,False,True,False,
+2.3.0,2024-04-24,cpu,,3.8,3.12,3.8 3.9 3.10 3.11 3.12,,,False,linux/x86_64 windows/x86_64,False,True,False,
+2.3.0,2024-04-24,cuda,11.8,3.8,3.12,3.8 3.9 3.10 3.11 3.12,3.7;5.0;6.0;7.0;7.5;8.0;8.6;9.0,5.0;6.0;7.0;7.5;8.0;8.6;3.7;9.0,False,linux/x86_64 windows/x86_64,False,True,False,https://raw.githubusercontent.com/pytorch/builder/release/2.3/manywheel/build_cuda.sh
+2.3.0,2024-04-24,cuda,12.1,3.8,3.12,3.8 3.9 3.10 3.11 3.12,5.0;6.0;7.0;7.5;8.0;8.6;9.0,5.0;6.0;7.0;7.5;8.0;8.6;9.0,False,linux/x86_64 windows/x86_64,False,True,True,https://raw.githubusercontent.com/pytorch/builder/release/2.3/manywheel/build_cuda.sh
+2.3.0,2024-04-24,default,,3.8,3.12,3.8 3.9 3.10 3.11 3.12,,,False,linux/aarch64 macos/arm64,True,True,False,
+2.3.0,2024-04-24,rocm,5.7,3.8,3.12,3.8 3.9 3.10 3.11 3.12,,,False,linux/x86_64,False,True,False,
+2.3.0,2024-04-24,rocm,6.0,3.8,3.12,3.8 3.9 3.10 3.11 3.12,,,False,linux/x86_64,False,True,False,
+2.3.1,2024-06-05,cpu,,3.8,3.12,3.8 3.9 3.10 3.11 3.12,,,False,linux/x86_64 windows/x86_64,False,True,False,
+2.3.1,2024-06-05,cuda,11.8,3.8,3.12,3.8 3.9 3.10 3.11 3.12,3.7;5.0;6.0;7.0;7.5;8.0;8.6;9.0,5.0;6.0;7.0;7.5;8.0;8.6;3.7;9.0,False,linux/x86_64 windows/x86_64,False,True,False,https://raw.githubusercontent.com/pytorch/builder/release/2.3/manywheel/build_cuda.sh
+2.3.1,2024-06-05,cuda,12.1,3.8,3.12,3.8 3.9 3.10 3.11 3.12,5.0;6.0;7.0;7.5;8.0;8.6;9.0,5.0;6.0;7.0;7.5;8.0;8.6;9.0,False,linux/x86_64 windows/x86_64,False,True,True,https://raw.githubusercontent.com/pytorch/builder/release/2.3/manywheel/build_cuda.sh
+2.3.1,2024-06-05,default,,3.8,3.12,3.8 3.9 3.10 3.11 3.12,,,False,linux/aarch64 macos/arm64,True,True,False,
+2.3.1,2024-06-05,rocm,5.7,3.8,3.12,3.8 3.9 3.10 3.11 3.12,,,False,linux/x86_64,False,True,False,
+2.3.1,2024-06-05,rocm,6.0,3.8,3.12,3.8 3.9 3.10 3.11 3.12,,,False,linux/x86_64,False,True,False,
+2.4.0,2024-07-24,cpu,,3.8,3.12,3.8 3.9 3.10 3.11 3.12,,,False,linux/x86_64 windows/x86_64,False,True,False,
+2.4.0,2024-07-24,cuda,11.8,3.8,3.12,3.8 3.9 3.10 3.11 3.12,3.7;5.0;6.0;7.0;7.5;8.0;8.6;9.0,5.0;6.0;7.0;7.5;8.0;8.6;3.7;9.0,False,linux/x86_64 windows/x86_64,False,True,False,https://raw.githubusercontent.com/pytorch/builder/release/2.4/manywheel/build_cuda.sh
+2.4.0,2024-07-24,cuda,12.1,3.8,3.12,3.8 3.9 3.10 3.11 3.12,5.0;6.0;7.0;7.5;8.0;8.6;9.0,5.0;6.0;7.0;7.5;8.0;8.6;9.0,False,linux/x86_64 windows/x86_64,False,True,True,https://raw.githubusercontent.com/pytorch/builder/release/2.4/manywheel/build_cuda.sh
+2.4.0,2024-07-24,cuda,12.4,3.8,3.12,3.8 3.9 3.10 3.11 3.12,5.0;6.0;7.0;7.5;8.0;8.6;9.0,5.0;6.0;7.0;7.5;8.0;8.6;9.0,False,linux/x86_64 windows/x86_64,False,True,False,https://raw.githubusercontent.com/pytorch/builder/release/2.4/manywheel/build_cuda.sh
+2.4.0,2024-07-24,default,,3.8,3.12,3.8 3.9 3.10 3.11 3.12,,,False,linux/aarch64 macos/arm64,True,True,False,
+2.4.0,2024-07-24,rocm,6.0,3.8,3.12,3.8 3.9 3.10 3.11 3.12,,,False,linux/x86_64,False,True,False,
+2.4.0,2024-07-24,rocm,6.1,3.8,3.12,3.8 3.9 3.10 3.11 3.12,,,False,linux/x86_64,False,True,False,
+2.4.1,2024-09-06,cpu,,3.8,3.12,3.8 3.9 3.10 3.11 3.12,,,False,linux/x86_64 windows/x86_64,False,True,False,
+2.4.1,2024-09-06,cuda,11.8,3.8,3.12,3.8 3.9 3.10 3.11 3.12,3.7;5.0;6.0;7.0;7.5;8.0;8.6;9.0,5.0;6.0;7.0;7.5;8.0;8.6;3.7;9.0,False,linux/x86_64 windows/x86_64,False,True,False,https://raw.githubusercontent.com/pytorch/builder/release/2.4/manywheel/build_cuda.sh
+2.4.1,2024-09-06,cuda,12.1,3.8,3.12,3.8 3.9 3.10 3.11 3.12,5.0;6.0;7.0;7.5;8.0;8.6;9.0,5.0;6.0;7.0;7.5;8.0;8.6;9.0,False,linux/x86_64 windows/x86_64,False,True,True,https://raw.githubusercontent.com/pytorch/builder/release/2.4/manywheel/build_cuda.sh
+2.4.1,2024-09-06,cuda,12.4,3.8,3.12,3.8 3.9 3.10 3.11 3.12,5.0;6.0;7.0;7.5;8.0;8.6;9.0,5.0;6.0;7.0;7.5;8.0;8.6;9.0,False,linux/x86_64 windows/x86_64,False,True,False,https://raw.githubusercontent.com/pytorch/builder/release/2.4/manywheel/build_cuda.sh
+2.4.1,2024-09-06,default,,3.8,3.12,3.8 3.9 3.10 3.11 3.12,,,False,linux/aarch64 macos/arm64,True,True,False,
+2.4.1,2024-09-06,rocm,6.0,3.8,3.12,3.8 3.9 3.10 3.11 3.12,,,False,linux/x86_64,False,True,False,
+2.4.1,2024-09-06,rocm,6.1,3.8,3.12,3.8 3.9 3.10 3.11 3.12,,,False,linux/x86_64,False,True,False,
+2.5.0,2024-10-17,cpu,,3.9,3.13,3.9 3.10 3.11 3.12 3.13,,,False,linux/x86_64 windows/x86_64,False,True,False,
+2.5.0,2024-10-17,cuda,11.8,3.9,3.13,3.9 3.10 3.11 3.12 3.13,3.7;5.0;6.0;7.0;7.5;8.0;8.6;9.0,5.0;6.0;7.0;7.5;8.0;8.6;3.7;9.0,False,linux/x86_64 windows/x86_64,False,True,False,https://raw.githubusercontent.com/pytorch/builder/release/2.5/manywheel/build_cuda.sh
+2.5.0,2024-10-17,cuda,12.1,3.9,3.13,3.9 3.10 3.11 3.12 3.13,5.0;6.0;7.0;7.5;8.0;8.6;9.0,5.0;6.0;7.0;7.5;8.0;8.6;9.0,False,linux/x86_64 windows/x86_64,False,True,False,https://raw.githubusercontent.com/pytorch/builder/release/2.5/manywheel/build_cuda.sh
+2.5.0,2024-10-17,cuda,12.4,3.9,3.13,3.9 3.10 3.11 3.12 3.13,5.0;6.0;7.0;7.5;8.0;8.6;9.0,5.0;6.0;7.0;7.5;8.0;8.6;9.0,False,linux/x86_64 windows/x86_64,False,True,True,https://raw.githubusercontent.com/pytorch/builder/release/2.5/manywheel/build_cuda.sh
+2.5.0,2024-10-17,default,,3.9,3.12,3.9 3.10 3.11 3.12,,,False,linux/aarch64 macos/arm64,True,True,False,
+2.5.0,2024-10-17,rocm,6.1,3.9,3.12,3.9 3.10 3.11 3.12,,,False,linux/x86_64,False,True,False,
+2.5.0,2024-10-17,rocm,6.2,3.9,3.12,3.9 3.10 3.11 3.12,,,False,linux/x86_64,False,True,False,
+2.5.1,2024-10-29,cpu,,3.9,3.13,3.9 3.10 3.11 3.12 3.13,,,False,linux/x86_64 windows/x86_64,False,True,False,
+2.5.1,2024-10-29,cuda,11.8,3.9,3.13,3.9 3.10 3.11 3.12 3.13,3.7;5.0;6.0;7.0;7.5;8.0;8.6;9.0,5.0;6.0;7.0;7.5;8.0;8.6;3.7;9.0,False,linux/x86_64 windows/x86_64,False,True,False,https://raw.githubusercontent.com/pytorch/builder/release/2.5/manywheel/build_cuda.sh
+2.5.1,2024-10-29,cuda,12.1,3.9,3.13,3.9 3.10 3.11 3.12 3.13,5.0;6.0;7.0;7.5;8.0;8.6;9.0,5.0;6.0;7.0;7.5;8.0;8.6;9.0,False,linux/x86_64 windows/x86_64,False,True,False,https://raw.githubusercontent.com/pytorch/builder/release/2.5/manywheel/build_cuda.sh
+2.5.1,2024-10-29,cuda,12.4,3.9,3.13,3.9 3.10 3.11 3.12 3.13,5.0;6.0;7.0;7.5;8.0;8.6;9.0,5.0;6.0;7.0;7.5;8.0;8.6;9.0,False,linux/x86_64 windows/x86_64,False,True,True,https://raw.githubusercontent.com/pytorch/builder/release/2.5/manywheel/build_cuda.sh
+2.5.1,2024-10-29,default,,3.9,3.12,3.9 3.10 3.11 3.12,,,False,linux/aarch64 macos/arm64,True,True,False,
+2.5.1,2024-10-29,rocm,6.1,3.9,3.12,3.9 3.10 3.11 3.12,,,False,linux/x86_64,False,True,False,
+2.5.1,2024-10-29,rocm,6.2,3.9,3.12,3.9 3.10 3.11 3.12,,,False,linux/x86_64,False,True,False,
+2.6.0,2025-01-30,cpu,,3.9,3.13,3.9 3.10 3.11 3.12 3.13,,,False,linux/aarch64 linux/x86_64 windows/x86_64,False,True,False,
+2.6.0,2025-01-30,cuda,11.8,3.9,3.13,3.9 3.10 3.11 3.12 3.13,3.7;5.0;6.0;7.0;7.5;8.0;8.6;9.0,5.0;6.0;7.0;7.5;8.0;8.6;3.7;9.0,False,linux/x86_64 windows/x86_64,False,True,False,https://raw.githubusercontent.com/pytorch/pytorch/v2.6.0/.ci/manywheel/build_cuda.sh
+2.6.0,2025-01-30,cuda,12.4,3.9,3.13,3.9 3.10 3.11 3.12 3.13,5.0;6.0;7.0;7.5;8.0;8.6;9.0,5.0;6.0;7.0;7.5;8.0;8.6;9.0,False,linux/x86_64 windows/x86_64,False,True,True,https://raw.githubusercontent.com/pytorch/pytorch/v2.6.0/.ci/manywheel/build_cuda.sh
+2.6.0,2025-01-30,cuda,12.6,3.9,3.13,3.9 3.10 3.11 3.12 3.13,5.0;6.0;7.0;7.5;8.0;8.6;9.0,5.0;6.0;7.0;7.5;8.0;8.6;9.0,False,linux/aarch64 linux/x86_64 windows/x86_64,False,True,False,https://raw.githubusercontent.com/pytorch/pytorch/v2.6.0/.ci/manywheel/build_cuda.sh
+2.6.0,2025-01-30,default,,3.9,3.13,3.9 3.10 3.11 3.12 3.13,,,False,macos/arm64,True,True,False,
+2.6.0,2025-01-30,rocm,6.1,3.9,3.13,3.9 3.10 3.11 3.12 3.13,,,False,linux/x86_64,False,True,False,
+2.6.0,2025-01-30,rocm,6.2.4,3.9,3.13,3.9 3.10 3.11 3.12 3.13,,,False,linux/x86_64,False,True,False,
+2.6.0,2025-01-30,xpu,,3.9,3.13,3.9 3.10 3.11 3.12 3.13,,,False,linux/x86_64 windows/x86_64,False,True,False,
+2.7.0,2025-04-22,cpu,,3.9,3.13,3.9 3.10 3.11 3.12 3.13,,,False,linux/aarch64 linux/x86_64 windows/arm64 windows/x86_64,False,True,False,
+2.7.0,2025-04-22,cuda,11.8,3.9,3.13,3.9 3.10 3.11 3.12 3.13,3.7;5.0;6.0;7.0;7.5;8.0;8.6;9.0,5.0;6.0;7.0;7.5;8.0;8.6;3.7;9.0,False,linux/x86_64 windows/x86_64,False,True,False,https://raw.githubusercontent.com/pytorch/pytorch/v2.7.0/.ci/manywheel/build_cuda.sh
+2.7.0,2025-04-22,cuda,12.6,3.9,3.13,3.9 3.10 3.11 3.12 3.13,5.0;6.0;7.0;7.5;8.0;8.6;9.0,5.0;6.0;7.0;7.5;8.0;8.6;9.0,False,linux/x86_64 windows/x86_64,False,True,True,https://raw.githubusercontent.com/pytorch/pytorch/v2.7.0/.ci/manywheel/build_cuda.sh
+2.7.0,2025-04-22,cuda,12.8,3.9,3.13,3.9 3.10 3.11 3.12 3.13,7.5;8.0;8.6;9.0;10.0;12.0,7.5;8.0;8.6;9.0;10.0;12.0+PTX,True,linux/aarch64 linux/x86_64 windows/x86_64,False,True,False,https://raw.githubusercontent.com/pytorch/pytorch/v2.7.0/.ci/manywheel/build_cuda.sh
+2.7.0,2025-04-22,default,,3.9,3.13,3.9 3.10 3.11 3.12 3.13,,,False,macos/arm64,True,True,False,
+2.7.0,2025-04-22,rocm,6.2.4,3.9,3.13,3.9 3.10 3.11 3.12 3.13,,,False,linux/x86_64,False,True,False,
+2.7.0,2025-04-22,rocm,6.3,3.9,3.13,3.9 3.10 3.11 3.12 3.13,,,False,linux/x86_64,False,True,False,
+2.7.0,2025-04-22,xpu,,3.9,3.13,3.9 3.10 3.11 3.12 3.13,,,False,linux/x86_64 windows/x86_64,False,True,False,
+2.7.1,2025-06-03,cpu,,3.9,3.13,3.9 3.10 3.11 3.12 3.13,,,False,linux/aarch64 linux/x86_64 windows/arm64 windows/x86_64,False,True,False,
+2.7.1,2025-06-03,cuda,11.8,3.9,3.13,3.9 3.10 3.11 3.12 3.13,3.7;5.0;6.0;7.0;7.5;8.0;8.6;9.0,5.0;6.0;7.0;7.5;8.0;8.6;3.7;9.0,False,linux/x86_64 windows/x86_64,False,True,False,https://raw.githubusercontent.com/pytorch/pytorch/v2.7.1/.ci/manywheel/build_cuda.sh
+2.7.1,2025-06-03,cuda,12.6,3.9,3.13,3.9 3.10 3.11 3.12 3.13,5.0;6.0;7.0;7.5;8.0;8.6;9.0,5.0;6.0;7.0;7.5;8.0;8.6;9.0,False,linux/x86_64 windows/x86_64,False,True,True,https://raw.githubusercontent.com/pytorch/pytorch/v2.7.1/.ci/manywheel/build_cuda.sh
+2.7.1,2025-06-03,cuda,12.8,3.9,3.13,3.9 3.10 3.11 3.12 3.13,7.5;8.0;8.6;9.0;10.0;12.0,7.5;8.0;8.6;9.0;10.0;12.0+PTX,True,linux/aarch64 linux/x86_64 windows/x86_64,False,True,False,https://raw.githubusercontent.com/pytorch/pytorch/v2.7.1/.ci/manywheel/build_cuda.sh
+2.7.1,2025-06-03,default,,3.9,3.13,3.9 3.10 3.11 3.12 3.13,,,False,macos/arm64,True,True,False,
+2.7.1,2025-06-03,rocm,6.2.4,3.9,3.13,3.9 3.10 3.11 3.12 3.13,,,False,linux/x86_64,False,True,False,
+2.7.1,2025-06-03,rocm,6.3,3.9,3.13,3.9 3.10 3.11 3.12 3.13,,,False,linux/x86_64,False,True,False,
+2.7.1,2025-06-03,xpu,,3.9,3.13,3.9 3.10 3.11 3.12 3.13,,,False,linux/x86_64 windows/x86_64,False,True,False,
+2.8.0,2025-10-01,cpu,,3.9,3.13,3.9 3.10 3.11 3.12 3.13,,,False,linux/aarch64 linux/s390x linux/x86_64 windows/arm64 windows/x86_64,False,True,False,
+2.8.0,2025-10-01,cuda,12.6,3.9,3.13,3.9 3.10 3.11 3.12 3.13,5.0;6.0;7.0;7.5;8.0;8.6;9.0,5.0;6.0;7.0;7.5;8.0;8.6;9.0,False,linux/x86_64 windows/x86_64,False,True,False,https://raw.githubusercontent.com/pytorch/pytorch/v2.8.0/.ci/manywheel/build_cuda.sh
+2.8.0,2025-10-01,cuda,12.8,3.9,3.13,3.9 3.10 3.11 3.12 3.13,7.0;7.5;8.0;8.6;9.0;10.0;12.0,7.0;7.5;8.0;8.6;9.0;10.0;12.0,False,linux/x86_64 windows/x86_64,False,True,True,https://raw.githubusercontent.com/pytorch/pytorch/v2.8.0/.ci/manywheel/build_cuda.sh
+2.8.0,2025-10-01,cuda,12.9,3.9,3.13,3.9 3.10 3.11 3.12 3.13,7.0;7.5;8.0;8.6;9.0;10.0;12.0,7.0;7.5;8.0;8.6;9.0;10.0;12.0+PTX,True,linux/aarch64 linux/x86_64 windows/x86_64,False,True,False,https://raw.githubusercontent.com/pytorch/pytorch/v2.8.0/.ci/manywheel/build_cuda.sh
+2.8.0,2025-10-01,default,,3.9,3.13,3.9 3.10 3.11 3.12 3.13,,,False,macos/arm64,True,True,False,
+2.8.0,2025-10-01,rocm,6.3,3.9,3.13,3.9 3.10 3.11 3.12 3.13,,,False,linux/x86_64,False,True,False,
+2.8.0,2025-10-01,rocm,6.4,3.9,3.13,3.9 3.10 3.11 3.12 3.13,,,False,linux/x86_64,False,True,False,
+2.8.0,2025-10-01,xpu,,3.9,3.13,3.9 3.10 3.11 3.12 3.13,,,False,linux/x86_64 windows/x86_64,False,True,False,
+2.9.0,2025-10-14,cpu,,3.10,3.14,3.10 3.11 3.12 3.13 3.14,,,False,linux/aarch64 linux/x86_64 windows/arm64 windows/x86_64,False,True,False,
+2.9.0,2025-10-14,cuda,12.6,3.10,3.14,3.10 3.11 3.12 3.13 3.14,5.0;6.0;7.0;7.5;8.0;8.6;9.0,5.0;6.0;7.0;7.5;8.0;8.6;9.0,False,linux/aarch64 linux/x86_64 windows/x86_64,False,True,False,https://raw.githubusercontent.com/pytorch/pytorch/v2.9.0/.ci/manywheel/build_cuda.sh
+2.9.0,2025-10-14,cuda,12.8,3.10,3.14,3.10 3.11 3.12 3.13 3.14,7.0;7.5;8.0;8.6;9.0;10.0;12.0,7.0;7.5;8.0;8.6;9.0;10.0;12.0,False,linux/aarch64 linux/x86_64 windows/x86_64,False,True,True,https://raw.githubusercontent.com/pytorch/pytorch/v2.9.0/.ci/manywheel/build_cuda.sh
+2.9.0,2025-10-14,cuda,12.9,3.10,3.14,3.10 3.11 3.12 3.13 3.14,7.0;7.5;8.0;8.6;9.0;10.0;12.0,7.0;7.5;8.0;8.6;9.0;10.0;12.0+PTX,True,linux/aarch64 linux/x86_64 windows/x86_64,False,True,False,https://raw.githubusercontent.com/pytorch/pytorch/v2.9.0/.ci/manywheel/build_cuda.sh
+2.9.0,2025-10-14,cuda,13.0,3.10,3.14,3.10 3.11 3.12 3.13 3.14,7.5;8.0;8.6;9.0;10.0;12.0,7.5;8.0;8.6;9.0;10.0;12.0+PTX,True,linux/aarch64 linux/x86_64 windows/x86_64,False,True,False,https://raw.githubusercontent.com/pytorch/pytorch/v2.9.0/.ci/manywheel/build_cuda.sh
+2.9.0,2025-10-14,default,,3.10,3.14,3.10 3.11 3.12 3.13 3.14,,,False,macos/arm64,True,True,False,
+2.9.0,2025-10-14,rocm,6.3,3.10,3.14,3.10 3.11 3.12 3.13 3.14,,,False,linux/x86_64,False,True,False,
+2.9.0,2025-10-14,rocm,6.4,3.10,3.14,3.10 3.11 3.12 3.13 3.14,,,False,linux/x86_64,False,True,False,
+2.9.0,2025-10-14,xpu,,3.10,3.14,3.10 3.11 3.12 3.13 3.14,,,False,linux/x86_64 windows/x86_64,False,True,False,
+2.9.1,2025-11-11,cpu,,3.10,3.14,3.10 3.11 3.12 3.13 3.14,,,False,linux/aarch64 linux/x86_64 windows/arm64 windows/x86_64,False,True,False,
+2.9.1,2025-11-11,cuda,12.6,3.10,3.14,3.10 3.11 3.12 3.13 3.14,5.0;6.0;7.0;7.5;8.0;8.6;9.0,5.0;6.0;7.0;7.5;8.0;8.6;9.0,False,linux/aarch64 linux/x86_64 windows/x86_64,False,True,False,https://raw.githubusercontent.com/pytorch/pytorch/v2.9.1/.ci/manywheel/build_cuda.sh
+2.9.1,2025-11-11,cuda,12.8,3.10,3.14,3.10 3.11 3.12 3.13 3.14,7.0;7.5;8.0;8.6;9.0;10.0;12.0,7.0;7.5;8.0;8.6;9.0;10.0;12.0,False,linux/aarch64 linux/x86_64 windows/x86_64,False,True,True,https://raw.githubusercontent.com/pytorch/pytorch/v2.9.1/.ci/manywheel/build_cuda.sh
+2.9.1,2025-11-11,cuda,12.9,3.10,3.14,3.10 3.11 3.12 3.13 3.14,7.0;7.5;8.0;8.6;9.0;10.0;12.0,7.0;7.5;8.0;8.6;9.0;10.0;12.0+PTX,True,linux/aarch64 linux/x86_64,False,True,False,https://raw.githubusercontent.com/pytorch/pytorch/v2.9.1/.ci/manywheel/build_cuda.sh
+2.9.1,2025-11-11,cuda,13.0,3.10,3.14,3.10 3.11 3.12 3.13 3.14,7.5;8.0;8.6;9.0;10.0;12.0,7.5;8.0;8.6;9.0;10.0;12.0+PTX,True,linux/aarch64 linux/x86_64 windows/x86_64,False,True,False,https://raw.githubusercontent.com/pytorch/pytorch/v2.9.1/.ci/manywheel/build_cuda.sh
+2.9.1,2025-11-11,default,,3.10,3.14,3.10 3.11 3.12 3.13 3.14,,,False,macos/arm64,True,True,False,
+2.9.1,2025-11-11,rocm,6.3,3.10,3.14,3.10 3.11 3.12 3.13 3.14,,,False,linux/x86_64,False,True,False,
+2.9.1,2025-11-11,rocm,6.4,3.10,3.14,3.10 3.11 3.12 3.13 3.14,,,False,linux/x86_64,False,True,False,
+2.9.1,2025-11-11,xpu,,3.10,3.14,3.10 3.11 3.12 3.13 3.14,,,False,linux/x86_64 windows/x86_64,False,True,False,
+2.10.0,2026-01-21,cpu,,3.10,3.14,3.10 3.11 3.12 3.13 3.14,,,False,linux/aarch64 linux/s390x linux/x86_64 windows/arm64 windows/x86_64,False,True,False,
+2.10.0,2026-01-21,cuda,12.6,3.10,3.14,3.10 3.11 3.12 3.13 3.14,5.0;6.0;7.0;7.5;8.0;8.6;9.0,5.0;6.0;7.0;7.5;8.0;8.6;9.0,False,linux/aarch64 linux/x86_64 windows/x86_64,False,True,False,https://raw.githubusercontent.com/pytorch/pytorch/v2.10.0/.ci/manywheel/build_cuda.sh
+2.10.0,2026-01-21,cuda,12.8,3.10,3.14,3.10 3.11 3.12 3.13 3.14,7.0;7.5;8.0;8.6;9.0;10.0;12.0,7.0;7.5;8.0;8.6;9.0;10.0;12.0,False,linux/aarch64 linux/x86_64 windows/x86_64,False,True,True,https://raw.githubusercontent.com/pytorch/pytorch/v2.10.0/.ci/manywheel/build_cuda.sh
+2.10.0,2026-01-21,cuda,12.9,3.10,3.14,3.10 3.11 3.12 3.13 3.14,7.0;7.5;8.0;8.6;9.0;10.0;12.0,7.0;7.5;8.0;8.6;9.0;10.0;12.0+PTX,True,linux/aarch64 linux/x86_64,False,True,False,https://raw.githubusercontent.com/pytorch/pytorch/v2.10.0/.ci/manywheel/build_cuda.sh
+2.10.0,2026-01-21,cuda,13.0,3.10,3.14,3.10 3.11 3.12 3.13 3.14,7.5;8.0;8.6;9.0;10.0;12.0,7.5;8.0;8.6;9.0;10.0;12.0+PTX,True,linux/aarch64 linux/x86_64 windows/x86_64,False,True,False,https://raw.githubusercontent.com/pytorch/pytorch/v2.10.0/.ci/manywheel/build_cuda.sh
+2.10.0,2026-01-21,default,,3.10,3.14,3.10 3.11 3.12 3.13 3.14,,,False,macos/arm64,True,True,False,
+2.10.0,2026-01-21,rocm,7.0,3.10,3.14,3.10 3.11 3.12 3.13 3.14,,,False,linux/x86_64,False,True,False,
+2.10.0,2026-01-21,rocm,7.1,3.10,3.14,3.10 3.11 3.12 3.13 3.14,,,False,linux/x86_64,False,True,False,
+2.10.0,2026-01-21,xpu,,3.10,3.14,3.10 3.11 3.12 3.13 3.14,,,False,linux/x86_64 windows/x86_64,False,True,False,
+2.11.0,2026-03-23,cpu,,3.10,3.14,3.10 3.11 3.12 3.13 3.14,,,False,linux/aarch64 linux/s390x linux/x86_64 windows/x86_64,False,True,False,
+2.11.0,2026-03-23,cuda,12.6,3.10,3.14,3.10 3.11 3.12 3.13 3.14,5.0;6.0;7.0,5.0;6.0;7.0;${TORCH_CUDA_ARCH_LIST//10.0/},False,linux/aarch64 linux/x86_64 windows/x86_64,False,True,False,https://raw.githubusercontent.com/pytorch/pytorch/v2.11.0/.ci/manywheel/build_cuda.sh
+2.11.0,2026-03-23,cuda,12.8,3.10,3.14,3.10 3.11 3.12 3.13 3.14,7.5;8.0;8.6;9.0;10.0;12.0,7.5;8.0;8.6;9.0;10.0;12.0,False,linux/aarch64 linux/x86_64 windows/x86_64,False,True,False,https://raw.githubusercontent.com/pytorch/pytorch/v2.11.0/.ci/manywheel/build_cuda.sh
+2.11.0,2026-03-23,cuda,12.9,3.10,3.14,3.10 3.11 3.12 3.13 3.14,7.5;8.0;8.6;9.0;10.0;12.0,7.5;8.0;8.6;9.0;10.0;12.0+PTX,True,linux/aarch64 linux/x86_64,False,True,False,https://raw.githubusercontent.com/pytorch/pytorch/v2.11.0/.ci/manywheel/build_cuda.sh
+2.11.0,2026-03-23,cuda,13.0,3.10,3.14,3.10 3.11 3.12 3.13 3.14,7.5;8.0;8.6;9.0;10.0;12.0,7.5;8.0;8.6;9.0;10.0;12.0,False,linux/aarch64 linux/x86_64 windows/x86_64,False,True,True,https://raw.githubusercontent.com/pytorch/pytorch/v2.11.0/.ci/manywheel/build_cuda.sh
+2.11.0,2026-03-23,default,,3.10,3.14,3.10 3.11 3.12 3.13 3.14,,,False,macos/arm64,True,True,False,
+2.11.0,2026-03-23,rocm,7.1,3.10,3.14,3.10 3.11 3.12 3.13 3.14,,,False,linux/x86_64,False,True,False,
+2.11.0,2026-03-23,rocm,7.2,3.10,3.14,3.10 3.11 3.12 3.13 3.14,,,False,linux/x86_64,False,True,False,
+2.11.0,2026-03-23,xpu,,3.10,3.14,3.10 3.11 3.12 3.13 3.14,,,False,linux/x86_64 windows/x86_64,False,True,False,
+2.12.0,2026-05-12,cpu,,3.10,3.14,3.10 3.11 3.12 3.13 3.14,,,False,linux/aarch64 linux/s390x linux/x86_64 windows/arm64 windows/x86_64,False,True,False,
+2.12.0,2026-05-12,cuda,12.6,3.10,3.14,3.10 3.11 3.12 3.13 3.14,5.0;6.0;7.0,5.0;6.0;7.0;${TORCH_CUDA_ARCH_LIST//10.0/},False,linux/aarch64 linux/x86_64 windows/x86_64,False,True,False,https://raw.githubusercontent.com/pytorch/pytorch/v2.12.0/.ci/manywheel/build_cuda.sh
+2.12.0,2026-05-12,cuda,13.0,3.10,3.14,3.10 3.11 3.12 3.13 3.14,7.5;8.0;8.6;9.0;10.0;12.0,7.5;8.0;8.6;9.0;10.0;12.0,False,linux/aarch64 linux/x86_64 windows/x86_64,False,True,True,https://raw.githubusercontent.com/pytorch/pytorch/v2.12.0/.ci/manywheel/build_cuda.sh
+2.12.0,2026-05-12,cuda,13.2,3.10,3.14,3.10 3.11 3.12 3.13 3.14,7.5;8.0;8.6;9.0;10.0;12.0,7.5;8.0;8.6;9.0;10.0;12.0,False,linux/aarch64 linux/x86_64 windows/x86_64,False,True,False,https://raw.githubusercontent.com/pytorch/pytorch/v2.12.0/.ci/manywheel/build_cuda.sh
+2.12.0,2026-05-12,default,,3.10,3.14,3.10 3.11 3.12 3.13 3.14,,,False,macos/arm64,True,True,False,
+2.12.0,2026-05-12,rocm,7.1,3.10,3.14,3.10 3.11 3.12 3.13 3.14,,,False,linux/x86_64,False,True,False,
+2.12.0,2026-05-12,rocm,7.2,3.10,3.14,3.10 3.11 3.12 3.13 3.14,,,False,linux/x86_64,False,True,False,
+2.12.0,2026-05-12,xpu,,3.10,3.14,3.10 3.11 3.12 3.13 3.14,,,False,linux/x86_64 windows/x86_64,False,True,False,
+2.12.1,2026-06-17,cpu,,3.10,3.14,3.10 3.11 3.12 3.13 3.14,,,False,linux/aarch64 linux/s390x linux/x86_64 windows/arm64 windows/x86_64,False,True,False,
+2.12.1,2026-06-17,cuda,12.6,3.10,3.14,3.10 3.11 3.12 3.13 3.14,5.0;6.0;7.0,5.0;6.0;7.0;${TORCH_CUDA_ARCH_LIST//10.0/},False,linux/aarch64 linux/x86_64 windows/x86_64,False,True,False,https://raw.githubusercontent.com/pytorch/pytorch/v2.12.1/.ci/manywheel/build_cuda.sh
+2.12.1,2026-06-17,cuda,12.9,3.10,3.14,3.10 3.11 3.12 3.13 3.14,7.5;8.0;8.6;9.0;10.0;12.0,7.5;8.0;8.6;9.0;10.0;12.0,False,linux/aarch64 linux/x86_64,False,True,False,https://raw.githubusercontent.com/pytorch/pytorch/v2.12.1/.ci/manywheel/build_cuda.sh
+2.12.1,2026-06-17,cuda,13.0,3.10,3.14,3.10 3.11 3.12 3.13 3.14,7.5;8.0;8.6;9.0;10.0;12.0,7.5;8.0;8.6;9.0;10.0;12.0,False,linux/aarch64 linux/x86_64 windows/x86_64,False,True,True,https://raw.githubusercontent.com/pytorch/pytorch/v2.12.1/.ci/manywheel/build_cuda.sh
+2.12.1,2026-06-17,cuda,13.2,3.10,3.14,3.10 3.11 3.12 3.13 3.14,7.5;8.0;8.6;9.0;10.0;12.0,7.5;8.0;8.6;9.0;10.0;12.0,False,linux/aarch64 linux/x86_64 windows/x86_64,False,True,False,https://raw.githubusercontent.com/pytorch/pytorch/v2.12.1/.ci/manywheel/build_cuda.sh
+2.12.1,2026-06-17,default,,3.10,3.14,3.10 3.11 3.12 3.13 3.14,,,False,macos/arm64,True,True,False,
+2.12.1,2026-06-17,rocm,7.1,3.10,3.14,3.10 3.11 3.12 3.13 3.14,,,False,linux/x86_64,False,True,False,
+2.12.1,2026-06-17,rocm,7.2,3.10,3.14,3.10 3.11 3.12 3.13 3.14,,,False,linux/x86_64,False,True,False,
+2.12.1,2026-06-17,xpu,,3.10,3.14,3.10 3.11 3.12 3.13 3.14,,,False,linux/x86_64 windows/x86_64,False,True,False,
+2.13.0.dev20260610,2026-07-08,cuda,12.6,3.10,3.14,3.10 3.11 3.12 3.13 3.14,5.0;6.0;7.0;7.5;8.0;8.6;9.0,5.0;6.0;7.0;7.5;8.0;8.6;9.0,False,linux/aarch64 linux/x86_64,False,False,False,https://raw.githubusercontent.com/pytorch/pytorch/v2.13.0/.ci/manywheel/build_env_setup.py
+2.13.0,2026-07-08,cpu,,3.10,3.15,3.10 3.11 3.12 3.13 3.14 3.15,,,False,linux/aarch64 linux/s390x linux/x86_64 windows/arm64 windows/x86_64,False,True,False,
+2.13.0,2026-07-08,cuda,12.6,3.10,3.15,3.10 3.11 3.12 3.13 3.14 3.15,5.0;6.0;7.0;7.5;8.0;8.6;9.0,5.0;6.0;7.0;7.5;8.0;8.6;9.0,False,linux/aarch64 linux/x86_64 windows/x86_64,False,True,False,https://raw.githubusercontent.com/pytorch/pytorch/v2.13.0/.ci/manywheel/build_env_setup.py
+2.13.0,2026-07-08,cuda,12.9,3.10,3.15,3.10 3.11 3.12 3.13 3.14 3.15,7.5;8.0;8.6;9.0;10.0;12.0,7.5;8.0;8.6;9.0;10.0;12.0,False,linux/aarch64 linux/x86_64,False,True,False,https://raw.githubusercontent.com/pytorch/pytorch/v2.13.0/.ci/manywheel/build_env_setup.py
+2.13.0,2026-07-08,cuda,13.0,3.10,3.15,3.10 3.11 3.12 3.13 3.14 3.15,7.5;8.0;8.6;9.0;10.0;12.0,7.5;8.0;8.6;9.0;10.0;12.0,False,linux/aarch64 linux/x86_64 windows/x86_64,False,True,True,https://raw.githubusercontent.com/pytorch/pytorch/v2.13.0/.ci/manywheel/build_env_setup.py
+2.13.0,2026-07-08,cuda,13.2,3.10,3.15,3.10 3.11 3.12 3.13 3.14 3.15,7.5;8.0;8.6;9.0;10.0;12.0,7.5;8.0;8.6;9.0;10.0;12.0,False,linux/aarch64 linux/x86_64 windows/x86_64,False,True,False,https://raw.githubusercontent.com/pytorch/pytorch/v2.13.0/.ci/manywheel/build_env_setup.py
+2.13.0,2026-07-08,default,,3.10,3.14,3.10 3.11 3.12 3.13 3.14,,,False,macos/arm64,True,True,False,
+2.13.0,2026-07-08,rocm,7.1,3.10,3.15,3.10 3.11 3.12 3.13 3.14 3.15,,,False,linux/x86_64,False,True,False,
+2.13.0,2026-07-08,rocm,7.2,3.10,3.15,3.10 3.11 3.12 3.13 3.14 3.15,,,False,linux/x86_64,False,True,False,
+2.13.0,2026-07-08,xpu,,3.10,3.15,3.10 3.11 3.12 3.13 3.14 3.15,,,False,linux/x86_64 windows/x86_64,False,True,False,
