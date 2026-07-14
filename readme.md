@@ -1,4 +1,4 @@
-# pytorch-compatibility
+# [pytorch-compatibility](https://racinmat.github.io/pytorch-compatibility/)
 
 Two things in one small, dependency-free project:
 
