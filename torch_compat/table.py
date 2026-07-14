@@ -193,7 +193,9 @@ def _py_range(pys: list[str]) -> str:
 
 
 def _is_dev(version: str) -> bool:
-    return "dev" in version.lower()
+    """Skip development builds (``.devN``) and post-releases (``.postN``)."""
+    v = version.lower()
+    return "dev" in v or "post" in v
 
 
 def write_markdown(rows: list[CompatRow], path: Path) -> None:

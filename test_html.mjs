@@ -173,6 +173,63 @@ check("no user-visible \"native\" label remains in the rendered command panel", 
   assert.doesNotMatch(preText(doc), /native/i);
 });
 
+check("header links to the GitHub repo and the Markdown compatibility table", () => {
+  const { doc } = load();
+  const links = [...doc.querySelectorAll("header .toolbar a.btn")];
+  assert.ok(links.length >= 2, "header should have repo + table buttons");
+  const repo = links.find((a) => /github repo/i.test(norm(a)));
+  const table = links.find((a) => /compatibility table/i.test(norm(a)));
+  assert.ok(repo && /github\.com\//.test(repo.getAttribute("href")), "repo button must link to GitHub");
+  assert.ok(table && /COMPATIBILITY\.md/.test(table.getAttribute("href")), "table button must link to the .md");
+});
+
+check("two tabs exist and switching to 'Search by PyTorch' reveals the torch panel", () => {
+  const { doc } = load();
+  assert.ok(doc.getElementById("tab-python"), "python tab panel exists");
+  assert.ok(doc.getElementById("tab-torch"), "torch tab panel exists");
+  assert.equal(doc.getElementById("tab-torch").hidden, true, "torch panel hidden initially");
+
+  doc.getElementById("tabBtnTorch").onclick();
+  assert.equal(doc.getElementById("tab-python").hidden, true);
+  assert.equal(doc.getElementById("tab-torch").hidden, false);
+  assert.ok(doc.getElementById("tabBtnTorch").classList.contains("active"));
+  assert.ok(doc.getElementById("tvVersion").value, "a torch version should be selected in tab 2");
+});
+
+check("'Search by PyTorch' shows Python, CUDA (caps + GPUs) and AMD/ROCm (gfx + GPUs)", () => {
+  const { doc } = load();
+  doc.getElementById("tabBtnTorch").onclick();
+  const out = doc.getElementById("tvOut");
+  const headings = [...out.querySelectorAll(".tv-section h3")].map((h) => norm(h));
+  assert.ok(headings.some((t) => /Python versions/i.test(t)), "should list Python versions");
+  assert.ok(headings.some((t) => /NVIDIA/i.test(t)), "should have an NVIDIA/CUDA section");
+  assert.ok(headings.some((t) => /AMD/i.test(t)), "should have an AMD/ROCm section");
+
+  // CUDA table: a compute-capability cell and a collapsible GPU list.
+  const cudaTable = [...out.querySelectorAll(".tv-table")][0];
+  assert.ok(cudaTable, "a CUDA table should render");
+  assert.match(cudaTable.innerHTML, /\d\.\d/, "CUDA table should show compute capabilities");
+  assert.ok(cudaTable.querySelector("details.gpus"), "CUDA rows should list supported GPUs");
+  assert.match(cudaTable.textContent, /GeForce RTX 4090|A100|H100/, "CUDA GPUs should be enumerated");
+
+  // The wheel-index link in the CUDA cell points at download.pytorch.org.
+  assert.match(cudaTable.innerHTML, /download\.pytorch\.org\/whl\/cu\d+/);
+});
+
+check("'Search by PyTorch' version switch re-renders and links to GitHub + PyPI", () => {
+  const { doc } = load();
+  doc.getElementById("tabBtnTorch").onclick();
+  const sel = doc.getElementById("tvVersion");
+  const options = [...sel.options].map((o) => o.value);
+  assert.ok(options.length >= 2, "several torch versions selectable");
+  sel.value = options[1];
+  sel.onchange({ target: sel });
+
+  const vlink = doc.getElementById("tvVersionLink");
+  assert.equal(vlink.getAttribute("href"), "https://github.com/pytorch/pytorch/releases/tag/v" + options[1]);
+  assert.match(doc.getElementById("tvSummary").innerHTML, /Released/);
+});
+
 // --- run -----------------------------------------------------------------
 let failed = 0;
 for (const [name, fn] of checks) {

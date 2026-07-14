@@ -15,7 +15,17 @@ up automatically without code changes.
 ## The interactive picker
 
 Open [`docs/index.html`](docs/index.html) directly in a browser — it is fully self-contained
-(all data is embedded as JSON), so it needs no server and no network.
+(all data is embedded as JSON), so it needs no server and no network. Its header links straight to
+this **GitHub repo** and to the rendered **[compatibility table](data/COMPATIBILITY.md)**, and the
+page has two tabs:
+
+- **Search by Python** — the install-command picker described below (start from your Python version
+  and GPU, get the exact command).
+- **Search by PyTorch** — start from a **torch version** and see everything it ships: available
+  **Python** versions, every **CUDA** build with its **compute capabilities** and the matching
+  **NVIDIA GPUs**, and every **ROCm** build with its **gfx targets** and matching **AMD GPUs**.
+
+### Search by Python
 
 - Pick your **Python version** and **GPU vendor** (NVIDIA / AMD), then **search for your GPU** in a
   filterable dropdown (by name/model/gfx, e.g. `4090`, `A100`, `7900 XTX`, `MI300X`). NVIDIA cards

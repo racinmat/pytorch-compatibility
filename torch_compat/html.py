@@ -17,6 +17,9 @@ from pathlib import Path
 from . import gpus
 from .table import CompatRow, version_key
 
+DEFAULT_REPO_URL = "https://github.com/racinmat/pytorch-compatibility"
+DEFAULT_TABLE_PATH = "data/COMPATIBILITY.md"
+
 
 def _channel(backend: str, backend_version: str) -> str | None:
     """The ``download.pytorch.org/whl/<channel>`` path segment, or None for PyPI."""
@@ -48,7 +51,8 @@ def _sort_rank(backend: str) -> int:
 def build_payload(rows: list[CompatRow]) -> dict:
     versions: dict[str, dict] = {}
     for r in rows:
-        if "dev" in r.torch_version.lower():
+        v = r.torch_version.lower()
+        if "dev" in v or "post" in v:
             continue
         v = versions.setdefault(
             r.torch_version,
@@ -89,7 +93,15 @@ def build_payload(rows: list[CompatRow]) -> dict:
     return {"versions": ordered}
 
 
-def write_html(rows: list[CompatRow], path: Path) -> None:
+def write_html(
+    rows: list[CompatRow],
+    path: Path,
+    *,
+    repo_url: str = DEFAULT_REPO_URL,
+    table_url: str | None = None,
+) -> None:
+    if table_url is None:
+        table_url = repo_url.rstrip("/") + "/blob/master/" + DEFAULT_TABLE_PATH
     payload = build_payload(rows)
     gpu_list = [asdict(g) for g in gpus.GPUS]
     generated = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
@@ -97,6 +109,8 @@ def write_html(rows: list[CompatRow], path: Path) -> None:
         _TEMPLATE.replace("__DATA__", json.dumps(payload, separators=(",", ":")))
         .replace("__GPUS__", json.dumps(gpu_list, separators=(",", ":")))
         .replace("__GENERATED__", generated)
+        .replace("__REPO_URL__", repo_url)
+        .replace("__TABLE_URL__", table_url)
     )
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(html, encoding="utf-8")
@@ -130,7 +144,37 @@ _TEMPLATE = r"""<!DOCTYPE html>
   header h1 { margin: 0 0 6px; font-size: 24px; }
   header h1 span { color: var(--orange); }
   header p { margin: 0; color: #cfcfcf; font-size: 14px; }
+  header .toolbar { display: flex; gap: 10px; margin-top: 16px; flex-wrap: wrap; }
+  .btn { display: inline-flex; align-items: center; gap: 7px; text-decoration: none;
+         background: rgba(255,255,255,.08); color: #fff; border: 1px solid rgba(255,255,255,.28);
+         border-radius: 8px; padding: 8px 13px; font-size: 13px; font-weight: 600; transition: all .12s; }
+  .btn:hover { background: var(--orange); border-color: var(--orange); }
+  .btn svg { width: 16px; height: 16px; fill: currentColor; }
   main { max-width: 1040px; margin: 0 auto; padding: 20px; }
+  .tabs { display: flex; gap: 4px; margin-bottom: 18px; border-bottom: 2px solid var(--line); }
+  .tab { border: none; background: transparent; padding: 11px 18px; font-size: 14px; font-weight: 600;
+         color: var(--muted); cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -2px; }
+  .tab:hover { color: var(--ink); }
+  .tab.active { color: var(--orange); border-bottom-color: var(--orange); }
+  .tab-panel[hidden] { display: none; }
+  .tv-summary { color: var(--muted); font-size: 14px; margin-top: 12px; }
+  .tv-summary b { color: var(--ink); }
+  .tv-section { margin-bottom: 24px; }
+  .tv-section:last-child { margin-bottom: 0; }
+  .tv-section h3 { font-size: 14px; margin: 0 0 10px; }
+  .tv-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .tv-table th, .tv-table td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--line);
+                               vertical-align: top; }
+  .tv-table th { color: var(--muted); font-weight: 600; text-transform: uppercase; font-size: 11px;
+                 letter-spacing: .04em; }
+  .tv-table code { background: #f3f4f6; padding: 1px 5px; border-radius: 4px; }
+  .tv-table code a { text-decoration: none; }
+  .tv-pills { display: flex; flex-wrap: wrap; gap: 6px; }
+  .tv-pill { background: #f3f4f6; border-radius: 999px; padding: 2px 9px; font-size: 12px; }
+  details.gpus summary { cursor: pointer; color: var(--orange); font-weight: 600; }
+  details.gpus .grp { margin: 6px 0 0; }
+  details.gpus .grp b { color: var(--ink); }
+  .tv-muted { color: var(--muted); }
   .card { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 18px; margin-bottom: 18px; }
   .row { display: grid; grid-template-columns: 150px 1fr; gap: 14px; align-items: start;
          padding: 12px 0; border-bottom: 1px solid var(--line); }
@@ -204,9 +248,22 @@ _TEMPLATE = r"""<!DOCTYPE html>
     <h1><span>PyTorch</span> install command picker</h1>
     <p>Pick your Python version and GPU, then the torch version and package manager, and get a
        ready-to-paste install command. Generated deterministically from upstream metadata &mdash; __GENERATED__.</p>
+    <div class="toolbar">
+      <a class="btn" href="__REPO_URL__" target="_blank" rel="noopener">
+        <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+        GitHub repo
+      </a>
+      <a class="btn" href="__TABLE_URL__" target="_blank" rel="noopener">Compatibility table (Markdown)</a>
+    </div>
   </div>
 </header>
 <main>
+  <div class="tabs">
+    <button class="tab active" id="tabBtnPython" type="button">Search by Python</button>
+    <button class="tab" id="tabBtnTorch" type="button">Search by PyTorch</button>
+  </div>
+
+  <div class="tab-panel" id="tab-python">
   <div class="card">
     <div class="row">
       <label>Python</label>
@@ -262,6 +319,24 @@ _TEMPLATE = r"""<!DOCTYPE html>
     <div class="index-info" id="indexInfo"></div>
     <div id="commands"></div>
   </div>
+  </div><!-- /tab-python -->
+
+  <div class="tab-panel" id="tab-torch" hidden>
+    <div class="card">
+      <div class="row">
+        <label>PyTorch version</label>
+        <div>
+          <select id="tvVersion"></select>
+          <a id="tvVersionLink" target="_blank" rel="noopener" style="margin-left:10px;font-size:13px;"></a>
+          <a id="tvPypiLink" target="_blank" rel="noopener" style="margin-left:10px;font-size:13px;"></a>
+          <div class="tv-summary" id="tvSummary"></div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div id="tvOut"></div>
+    </div>
+  </div><!-- /tab-torch -->
 </main>
 <footer>
   NVIDIA matching uses CUDA binary minor-version forward compatibility (a cubin for
@@ -291,7 +366,7 @@ const DOCS = {
 };
 const BASE = "https://download.pytorch.org/whl/";
 
-const state = { python: null, vendor: "nvidia", gpu: "", version: null, os: "linux", platform: null, manager: "pip" };
+const state = { python: null, vendor: "nvidia", gpu: "", version: null, os: "linux", platform: null, manager: "pip", tv: null };
 const $ = (id) => document.getElementById(id);
 
 function ccTuple(s) { const p = s.split("."); return [parseInt(p[0], 10), parseInt(p[1] || "0", 10)]; }
@@ -764,9 +839,147 @@ function recompute() {
   renderCommands();
 }
 
+// ---- "Search by PyTorch" tab -------------------------------------------
+function tvGetVersion() { return DATA.versions.find((v) => v.version === state.tv) || null; }
+
+function _tvChannelCell(b) {
+  if (b.channel) {
+    const url = BASE + b.channel;
+    return '<code><a href="' + url + '" target="_blank" rel="noopener">' + b.backend_version +
+      "</a></code>";
+  }
+  return "<code>" + (b.backend_version || b.label) + "</code>";
+}
+
+// Group a GPU list by compute capability (NVIDIA) or gfx target (AMD) inside a
+// collapsible <details>, so long lists stay readable.
+function gpuGroupHtml(list, mode) {
+  if (!list.length) return '<span class="tv-muted">none</span>';
+  const groups = new Map();
+  list.forEach((g) => {
+    const k = mode === "amd" ? g.gfx : g.cc;
+    if (!groups.has(k)) groups.set(k, { arch: g.arch, names: [] });
+    groups.get(k).names.push(g.name);
+  });
+  const keys = [...groups.keys()].sort((a, b) => (mode === "amd" ? a.localeCompare(b) : ccNum(a) - ccNum(b)));
+  let html = '<details class="gpus"><summary>' + list.length + " GPU" + (list.length === 1 ? "" : "s") +
+    "</summary>";
+  keys.forEach((k) => {
+    const g = groups.get(k);
+    const head = mode === "amd" ? k : "CC " + k;
+    html += '<div class="grp"><b>' + head + "</b> · " + g.arch + ": " + g.names.join(", ") + "</div>";
+  });
+  html += "</details>";
+  return html;
+}
+
+function renderTorchVersionSelect() {
+  const sel = $("tvVersion"); sel.innerHTML = "";
+  DATA.versions.forEach((v, i) => {
+    const o = document.createElement("option");
+    o.value = v.version;
+    o.textContent = "torch " + v.version + (i === 0 ? " (latest)" : "") +
+      (v.released ? "  ·  " + v.released : "");
+    sel.appendChild(o);
+  });
+  if (state.tv) sel.value = state.tv;
+}
+
+function renderTorchTab() {
+  const v = tvGetVersion();
+  const out = $("tvOut"); const sum = $("tvSummary");
+  const vlink = $("tvVersionLink"); const plink = $("tvPypiLink");
+  if (!v) { out.innerHTML = ""; sum.innerHTML = ""; vlink.style.display = "none"; plink.style.display = "none"; return; }
+
+  vlink.href = "https://github.com/pytorch/pytorch/releases/tag/v" + v.version;
+  vlink.textContent = "release notes on GitHub ↗"; vlink.style.display = "";
+  if (v.on_pypi) {
+    plink.href = "https://pypi.org/project/torch/" + v.version + "/";
+    plink.textContent = "PyPI ↗"; plink.style.display = "";
+  } else { plink.style.display = "none"; }
+
+  const pys = [...new Set([].concat(...v.builds.map((b) => b.pythons)))].sort((a, b) => pyKey(a) - pyKey(b));
+  sum.innerHTML = "Released <b>" + (v.released || "—") + "</b> · " +
+    (v.on_pypi ? "on PyPI" : "index-only (not on PyPI)") + " · Python <b>" +
+    (pys.length ? pys[0] + "–" + pys[pys.length - 1] : "—") + "</b>";
+
+  let html = "";
+
+  html += '<div class="tv-section"><h3>Python versions</h3><div class="tv-pills">' +
+    pys.map((p) => '<span class="tv-pill">' + p + "</span>").join("") + "</div></div>";
+
+  const cuda = v.builds.filter((b) => b.backend === "cuda")
+    .sort((a, b) => ccNum(b.backend_version) - ccNum(a.backend_version));
+  html += '<div class="tv-section"><h3>NVIDIA &mdash; CUDA builds</h3>';
+  if (!cuda.length) {
+    html += '<p class="tv-muted">No CUDA wheels for this release.</p>';
+  } else {
+    html += '<table class="tv-table"><thead><tr><th>CUDA</th><th>Compute capabilities</th>' +
+      "<th>OS</th><th>Supported NVIDIA GPUs</th></tr></thead><tbody>";
+    cuda.forEach((b) => {
+      const caps = b.caps.slice().sort((a, c) => ccNum(a) - ccNum(c));
+      const capsHtml = (caps.length ? caps.join(", ") : "—") +
+        (b.ptx ? ' <span class="badge ptx">+PTX</span>' : "");
+      const gl = GPUS.filter((g) => g.vendor === "nvidia" && gpuSupport(g.cc, b.caps, b.ptx).ok);
+      html += "<tr><td>" + _tvChannelCell(b) + "</td><td>" + capsHtml + "</td><td>" +
+        b.os.map((o) => OS_LABELS[o]).join(", ") + "</td><td>" + gpuGroupHtml(gl, "nvidia") + "</td></tr>";
+    });
+    html += "</tbody></table>";
+  }
+  html += "</div>";
+
+  const rocm = v.builds.filter((b) => b.backend === "rocm")
+    .sort((a, b) => ccNum(b.backend_version) - ccNum(a.backend_version));
+  html += '<div class="tv-section"><h3>AMD &mdash; ROCm builds</h3>';
+  if (!rocm.length) {
+    html += '<p class="tv-muted">No ROCm wheels for this release.</p>';
+  } else {
+    html += '<table class="tv-table"><thead><tr><th>ROCm</th><th>gfx targets</th>' +
+      "<th>OS</th><th>Supported AMD GPUs</th></tr></thead><tbody>";
+    rocm.forEach((b) => {
+      const gl = GPUS.filter((g) => g.vendor === "amd" && rocmSupport(g, b.backend_version));
+      const gfx = [...new Set(gl.map((g) => g.gfx))].sort();
+      const gfxHtml = gfx.length
+        ? gfx.map((x) => '<span class="tv-pill">' + x + "</span>").join(" ")
+        : '<span class="tv-muted">—</span>';
+      html += "<tr><td>" + _tvChannelCell(b) + '</td><td><div class="tv-pills">' + gfxHtml +
+        "</div></td><td>" + b.os.map((o) => OS_LABELS[o]).join(", ") + "</td><td>" +
+        gpuGroupHtml(gl, "amd") + "</td></tr>";
+    });
+    html += "</tbody></table>";
+  }
+  html += "</div>";
+
+  const others = v.builds.filter((b) => b.backend === "cpu" || b.backend === "default" || b.backend === "xpu");
+  if (others.length) {
+    const seen = new Set();
+    const pills = [];
+    others.forEach((b) => { if (!seen.has(b.label)) { seen.add(b.label); pills.push(b.label); } });
+    html += '<div class="tv-section"><h3>Other builds</h3><div class="tv-pills">' +
+      pills.map((l) => '<span class="tv-pill">' + l + "</span>").join("") + "</div></div>";
+  }
+
+  out.innerHTML = html;
+}
+
+function showTab(name) {
+  const py = name === "python";
+  $("tab-python").hidden = !py;
+  $("tab-torch").hidden = py;
+  $("tabBtnPython").classList.toggle("active", py);
+  $("tabBtnTorch").classList.toggle("active", !py);
+  if (!py) renderTorchTab();
+}
+
 function init() {
   state.python = allPythons().slice(-1)[0] || null;
   recompute();
+
+  state.tv = DATA.versions.length ? DATA.versions[0].version : null;
+  renderTorchVersionSelect();
+  $("tvVersion").onchange = (e) => { state.tv = e.target.value; renderTorchTab(); };
+  $("tabBtnPython").onclick = () => showTab("python");
+  $("tabBtnTorch").onclick = () => showTab("torch");
 
   const gi = $("gpuInput");
   gi.onfocus = showGpuList;

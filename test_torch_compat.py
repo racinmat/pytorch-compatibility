@@ -190,12 +190,14 @@ def test_html_payload_shape_and_dev_filtering():
         '<a>torch-2.5.0+cu124-cp311-cp311-linux_x86_64.whl</a>'
         '<a>torch-2.5.0+cpu-cp311-cp311-win_amd64.whl</a>'
         '<a>torch-2.6.0.dev1+cu124-cp311-cp311-linux_x86_64.whl</a>'
+        '<a>torch-2.3.0.post4+cu121-cp311-cp311-linux_x86_64.whl</a>'
     )
     rows = table.build_rows(wheels.parse_index(src))
     payload = html.build_payload(rows)
     versions = {v["version"] for v in payload["versions"]}
     assert "2.5.0" in versions
     assert "2.6.0.dev1" not in versions  # dev releases are hidden from the picker
+    assert "2.3.0.post4" not in versions  # post-releases are hidden too
 
     v = next(v for v in payload["versions"] if v["version"] == "2.5.0")
     cuda = next(b for b in v["builds"] if b["backend"] == "cuda")
