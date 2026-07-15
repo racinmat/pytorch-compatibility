@@ -705,8 +705,7 @@ function renderRangeNote() {
     s += "GPUs older than CC " + r.min + " have no wheel in this release. ";
     // Forward compatibility upward.
     s += "Newer cards of an already-built architecture still run via <b>binary forward-compatibility</b> — " +
-      "a CC " + r.max + " cubin also runs same-major GPUs with a higher minor" +
-      (maxMajor === 12 ? " (e.g. CC 12.1 / NVIDIA DGX Spark on the CC 12.0 build)" : "") + ". ";
+      "a CC " + r.max + " cubin also runs same-major GPUs with a higher minor.";
     s += r.anyPtx
       ? "With <code>+PTX</code>, even newer architectures run via a one-time JIT compile. "
       : "Only GPUs from an architecture major newer than " + maxMajor + ".x need a later torch release. ";
