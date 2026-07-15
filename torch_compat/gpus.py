@@ -55,6 +55,12 @@ GPUS: list[Gpu] = [
     Gpu("RTX PRO 6000 Blackwell", "12.0", "Blackwell", "workstation"),
     Gpu("RTX PRO 5000 Blackwell", "12.0", "Blackwell", "workstation"),
     Gpu("RTX PRO 4500 Blackwell", "12.0", "Blackwell", "workstation"),
+    # --- Blackwell (GB10 / DGX Spark, sm_121) ------------------------------
+    # CC 12.1: binary-compatible with the sm_120 (CC 12.0) wheels via CUDA
+    # minor-version forward-compatibility, so it runs on the same builds as the
+    # RTX 50-series. (sm_121a-only features like NVFP4 block-scaled MMA still
+    # need a dedicated build, but general PyTorch works.)
+    Gpu("GB10 (Grace Blackwell, DGX Spark)", "12.1", "Blackwell", "workstation"),
     # --- Blackwell (datacenter, sm_100) ------------------------------------
     Gpu("B200", "10.0", "Blackwell", "datacenter"),
     Gpu("B100", "10.0", "Blackwell", "datacenter"),

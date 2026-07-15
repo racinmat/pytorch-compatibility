@@ -361,6 +361,7 @@ const VENDOR_LABELS = { nvidia: "NVIDIA (CUDA)", amd: "AMD (ROCm)" };
 const DOCS = {
   nvidia: "https://developer.nvidia.com/cuda/gpus",
   nvidia_legacy: "https://developer.nvidia.com/cuda/gpus/legacy",
+  cuda_compat: "https://docs.nvidia.com/cuda/cuda-c-programming-guide/#binary-compatibility",
   amd_gpus: "https://rocm.docs.amd.com/projects/install-on-linux/en/latest/reference/system-requirements.html",
   amd_gfx: "https://llvm.org/docs/AMDGPUUsage.html#processors",
 };
@@ -645,15 +646,26 @@ function renderGpuInfo() {
 
 // --- version "range" note ------------------------------------------------
 function ccArchName(cc) { const g = GPUS.find((x) => x.vendor === "nvidia" && x.cc === cc); return g ? g.arch : null; }
+// Compute-capability coverage of a torch version's CUDA wheels. The arch list
+// differs per CUDA build, so a single [min,max] over all builds is misleading:
+// we track the global floor, the default `pip install` wheel's floor, and which
+// CUDA build(s) are needed to reach the oldest cards.
 function versionCcRange() {
   const v = getVersion(); if (!v) return null;
-  const caps = []; let ptx = false;
-  v.builds.forEach((b) => {
-    if (b.backend === "cuda") { b.caps.forEach((c) => caps.push(c)); if (b.ptx) ptx = true; }
-  });
-  if (!caps.length) return null;
-  caps.sort((a, b) => ccNum(a) - ccNum(b));
-  return { min: caps[0], max: caps[caps.length - 1], ptx };
+  const cuda = v.builds.filter((b) => b.backend === "cuda" && b.caps.length);
+  if (!cuda.length) return null;
+  const all = []; let anyPtx = false;
+  cuda.forEach((b) => { b.caps.forEach((c) => all.push(c)); if (b.ptx) anyPtx = true; });
+  all.sort((a, b) => ccNum(a) - ccNum(b));
+  const min = all[0], max = all[all.length - 1];
+  const buildMin = (b) => b.caps.slice().sort((a, c) => ccNum(a) - ccNum(c))[0];
+  // The default plain-`pip install` (Linux) wheel and its floor.
+  const def = cuda.find((b) => b.pypi_default) || null;
+  const defMin = def ? buildMin(def) : null;
+  // CUDA versions whose wheel actually reaches the global-oldest arch.
+  const minCudas = cuda.filter((b) => b.caps.map(ccNum).includes(ccNum(min)))
+    .map((b) => b.backend_version).sort((a, c) => ccNum(a) - ccNum(c));
+  return { min, max, anyPtx, def, defMin, minCudas, cudaCount: cuda.length };
 }
 function versionRocmRange() {
   const v = getVersion(); if (!v) return null;
@@ -668,16 +680,40 @@ function renderRangeNote() {
     const r = versionCcRange();
     if (!r) { el.style.display = "none"; return; }
     el.style.display = "block";
-    const minA = ccArchName(r.min), maxA = ccArchName(r.max);
-    let s = "torch <b>" + state.version + "</b> CUDA wheels are built for NVIDIA compute capabilities <b>" +
-      r.min + (minA ? " (" + minA + ")" : "") + "</b> to <b>" + r.max + (maxA ? " (" + maxA + ")" : "") + "</b>. ";
-    s += "GPUs <b>older than CC " + r.min + "</b> have no supported wheel for this release; ";
-    s += r.ptx
-      ? "much newer GPUs still run via PTX JIT. "
-      : "GPUs <b>newer than CC " + r.max + "</b> need a later torch release. ";
-    s += 'If your card isn\'t shown as supported, that\'s expected — not a bug. Source: ' +
+    const arch = (cc) => { const a = ccArchName(cc); return cc + (a ? " (" + a + ")" : ""); };
+    const maxMajor = ccTuple(r.max)[0];
+    let s = "";
+    if (r.cudaCount > 1) {
+      s += "torch <b>" + state.version + "</b> ships " + r.cudaCount + " CUDA wheels whose supported " +
+        "compute capabilities differ by CUDA version. ";
+    } else {
+      s += "torch <b>" + state.version + "</b>'s CUDA wheel is built for compute capabilities. ";
+    }
+    // Default (plain pip install) floor — Linux-specific.
+    if (r.def) {
+      s += "On Linux a plain <code>pip install</code> pulls the CUDA <b>" + r.def.backend_version +
+        "</b> wheel, which supports CC <b>" + arch(r.defMin) + "</b> and up. ";
+    }
+    // Older cards need an explicit older CUDA build.
+    if (ccNum(r.min) < ccNum(r.defMin || r.max) && r.minCudas.length) {
+      const c = r.minCudas.length === 1
+        ? "the CUDA <b>" + r.minCudas[0] + "</b> wheel"
+        : "the CUDA <b>" + r.minCudas[0] + "</b>–<b>" + r.minCudas[r.minCudas.length - 1] + "</b> wheels";
+      s += "Older cards down to CC <b>" + arch(r.min) + "</b> are only covered by " + c +
+        " (install it explicitly). ";
+    }
+    s += "GPUs older than CC " + r.min + " have no wheel in this release. ";
+    // Forward compatibility upward.
+    s += "Newer cards of an already-built architecture still run via <b>binary forward-compatibility</b> — " +
+      "a CC " + r.max + " cubin also runs same-major GPUs with a higher minor" +
+      (maxMajor === 12 ? " (e.g. CC 12.1 / NVIDIA DGX Spark on the CC 12.0 build)" : "") + ". ";
+    s += r.anyPtx
+      ? "With <code>+PTX</code>, even newer architectures run via a one-time JIT compile. "
+      : "Only GPUs from an architecture major newer than " + maxMajor + ".x need a later torch release. ";
+    s += "That's expected, not a bug. Sources: " +
       '<a href="' + DOCS.nvidia + '" target="_blank" rel="noopener">NVIDIA CUDA GPUs ↗</a> ' +
-      '(<a href="' + DOCS.nvidia_legacy + '" target="_blank" rel="noopener">legacy ↗</a>).';
+      '(<a href="' + DOCS.nvidia_legacy + '" target="_blank" rel="noopener">legacy ↗</a>), ' +
+      '<a href="' + DOCS.cuda_compat + '" target="_blank" rel="noopener">CUDA binary compatibility ↗</a>.';
     el.innerHTML = s;
   } else {
     const r = versionRocmRange();

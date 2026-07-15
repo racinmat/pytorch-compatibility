@@ -173,6 +173,39 @@ check("no user-visible \"native\" label remains in the rendered command panel", 
   assert.doesNotMatch(preText(doc), /native/i);
 });
 
+check("range note is per-build accurate: default wheel floor + binary forward-compat, no false ceiling", () => {
+  const { doc } = load(); // latest torch version selected by default
+  const note = norm(doc.getElementById("rangeNote"));
+  // Must not repeat the old bug: claiming same-major newer GPUs need a later release.
+  assert.doesNotMatch(note, /newer than CC[\s\S]*need a later torch release/i,
+    "must not claim same-major newer cards need a later release (got: " + note + ")");
+  // Must explain binary forward-compatibility (so e.g. sm_121 on the sm_120 build).
+  assert.match(note, /binary forward-compatibility/i);
+  // Only a newer architecture *major* should require a later release.
+  assert.match(note, /architecture major newer than/i);
+  // Multi-build versions should surface the default pip wheel and its floor.
+  if (/differ by CUDA version/i.test(note)) {
+    assert.match(note, /plain .*pip install.* pulls the CUDA/i, "should name the default pip wheel");
+    assert.match(note, /install it explicitly/i, "should tell users to install an older CUDA build for old cards");
+  }
+  assert.match(note, /CUDA binary compatibility/i, "should link the CUDA binary-compatibility docs");
+});
+
+check("DGX Spark (CC 12.1) runs on a CC 12.0 CUDA build via minor-version forward-compat", () => {
+  const { window, doc } = load();
+  doc.getElementById("gpuInput").value = "DGX";
+  window.renderGpuList();
+  const listed = opts(doc, "#gpuList .combo-item").filter((t) => !t.includes("none"));
+  assert.ok(listed.some((t) => /DGX Spark/.test(t)), "search 'DGX' should list the GB10 / DGX Spark");
+
+  window.selectGpu("GB10 (Grace Blackwell, DGX Spark)");
+  assert.ok(active(doc, "#platform")[0].startsWith("CUDA"),
+    "a CC 12.1 card must resolve to a CUDA build (not CPU) via forward-compat");
+  assert.match(doc.getElementById("gpuInfo").innerHTML, /compute capability <b>12\.1<\/b>/);
+  // It is a native (binary) match on the 12.0 cubin, so no PTX-JIT warning should show.
+  assert.doesNotMatch(doc.getElementById("gpuInfo").innerHTML, /PTX JIT/);
+});
+
 check("header links to the GitHub repo and the Markdown compatibility table", () => {
   const { doc } = load();
   const links = [...doc.querySelectorAll("header .toolbar a.btn")];

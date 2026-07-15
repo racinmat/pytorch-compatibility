@@ -35,9 +35,14 @@ page has two tabs:
   JIT are flagged **PTX**; for AMD, matching uses each card's ROCm support window.
 - Then pick the **torch version** (only versions supporting your Python are offered), **OS**,
   **compute platform** and **package manager**.
-- A note spells out the range each torch version covers — the **CUDA compute-capability range**
-  for NVIDIA (e.g. CC 5.0 Maxwell → 12.0 Blackwell) or the **ROCm version range** for AMD — so it's
-  clear that cards outside that range are intentionally unavailable for that release, not a bug.
+- A note spells out the compute-capability coverage of each torch version. Because the arch list
+  **differs per CUDA build**, it distinguishes the floor of the plain `pip install` (Linux default)
+  wheel from the older CUDA build you must install explicitly to reach the oldest cards, and it
+  applies CUDA's real compatibility rules: newer same-major GPUs run via **binary
+  forward-compatibility** (e.g. CC 12.1 / NVIDIA DGX Spark on the CC 12.0 build), and `+PTX` builds
+  JIT-compile for even newer architectures — only a strictly newer architecture *major* needs a
+  later torch release. For AMD it shows the **ROCm version range** instead. This makes clear that
+  cards outside the range are intentionally unavailable, not a bug.
 - Every inferred fact links to its **source**: the GPU's compute capability / gfx target
   ([NVIDIA CUDA GPUs](https://developer.nvidia.com/cuda/gpus) /
   [legacy](https://developer.nvidia.com/cuda/gpus/legacy),
