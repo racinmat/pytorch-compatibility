@@ -33,4 +33,4 @@ index_overrides:
 missing_index_message: 'This wheel index (<code>pytorch-whl-{channel}-remote</code>) has not been mirrored yet. <a href="https://jira.int.example.com/secure/CreateIssueDetails!init.jspa?pid=YOUR_PROJECT_ID&amp;issuetype=YOUR_ISSUETYPE_ID&amp;summary=Mirror%20PyTorch%20wheel%20index%20pytorch-whl-{channel}-remote&amp;description=Please%20mirror%20https%3A%2F%2Fdownload.pytorch.org%2Fwhl%2F{channel}%20as%20the%20pytorch-whl-{channel}-remote%20repository.&amp;labels=pytorch-wheel-mirror">Open a pre-filled request ticket</a>, or clone <a href="https://jira.int.example.com/browse/PYTHON-1234">PYTHON-1234</a> and ping <a href="https://example.slack.com/archives/C00000000">#python-support</a> to have <code>pytorch-whl-{channel}-remote</code> created.'
 
 # Point the header at the internal mirror of the repo, if any.
-repo_url: "https://git.int.avast.com/racinmat/pytorch-compatibility"
+repo_url: "https://git.int.int.example.com/racinmat/pytorch-compatibility"
