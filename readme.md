@@ -1,6 +1,6 @@
 # [pytorch-compatibility](https://racinmat.github.io/pytorch-compatibility/)
 
-Two things in one small, dependency-free project:
+Two things in one small project (the generated picker is fully self-contained):
 
 1. An **interactive install-command picker** ([`docs/index.html`](docs/index.html)) — choose a
    PyTorch version, OS, compute platform (or just your **GPU**) and Python version, and get
@@ -148,8 +148,58 @@ npm test        # runs test_html.mjs against docs/index.html
 Regenerate `docs/index.html` (`uv run python generate.py`) before running it if you changed the
 generator or the data.
 
-No third-party **runtime** dependencies (standard library only); `pytest` is the sole dev
-dependency. If you prefer not to use uv, plain `python generate.py` works too.
+The only runtime dependency is **PyYAML** (to read the config file); the generated
+`docs/index.html` is still fully self-contained. `pytest` is the sole dev dependency. If you prefer
+not to use uv, plain `python generate.py` works too (with `pyyaml` installed).
+
+## Configuration
+
+The picker is configured from a YAML file (default: [`config.yaml`](config.yaml)). The same
+generator drives two deployments:
+
+- **public** (the committed `config.yaml`) — every wheel index resolves to the official
+  `https://download.pytorch.org/whl/<channel>` URLs.
+- **internal** — the wheel indexes are mirrored elsewhere (e.g. an Artifactory remote). Only the
+  channels you list are available; selecting any other compute platform shows a placeholder message
+  telling users how to request that index.
+
+Generate an internal build by pointing `--config` at your own file:
+
+```shell
+cp config.internal.example.yaml config.internal.yaml   # gitignored
+uv run python generate.py --config config.internal.yaml
+```
+
+Config keys (all optional; omitted keys fall back to built-in defaults):
+
+| Key | Meaning |
+| --- | --- |
+| `mode` | `public` (resolve every channel to `default_index_base`) or `internal` (only listed channels are usable) |
+| `default_index_base` | base URL the channel is appended to (default `https://download.pytorch.org/whl/`) |
+| `index_overrides` | map of `channel -> index URL` (e.g. an internal mirror); takes precedence in any mode |
+| `missing_index_message` | shown in `internal` mode when a selected channel has no override |
+| `repo_url` | header "GitHub repo" link |
+| `table_url` | header "Compatibility table" link (defaults to `<repo_url>/blob/master/data/COMPATIBILITY.md`) |
+
+For example, the internal deployment maps each
+`https://download.pytorch.org/whl/<channel>` to
+`https://artifactory.ida.avast.com/artifactory/api/pypi/pytorch-whl-<channel>-remote/simple/`:
+
+```yaml
+mode: internal
+index_overrides:
+  cu126: "https://artifactory.ida.avast.com/artifactory/api/pypi/pytorch-whl-cu126-remote/simple/"
+  cpu:   "https://artifactory.ida.avast.com/artifactory/api/pypi/pytorch-whl-cpu-remote/simple/"
+  rocm7.2: "https://artifactory.ida.avast.com/artifactory/api/pypi/pytorch-whl-rocm7.2-remote/simple/"
+missing_index_message: >-
+  This wheel index has not been mirrored yet — request it and clone the setup ticket.
+```
+
+In `internal` mode the commands adapt automatically: pip/uv/Poetry/PDM point `--index-url`
+(and the `pyproject.toml` snippets) at the mirror, uv drops `--torch-backend` (which only knows the
+public indexes), the default platform prefers a configured channel, and unmirrored channels render
+the `missing_index_message` instead of a command. See
+[`config.internal.example.yaml`](config.internal.example.yaml).
 
 ## Data sources (why it is deterministic)
 
@@ -195,14 +245,17 @@ introduces a *new* build-script layout, add a URL to `candidate_urls()` and/or a
 
 ```
 generate.py                 CLI orchestrator (table + HTML)
+config.yaml                 picker config (public deployment)
+config.internal.example.yaml example internal (Artifactory-mirror) config
 torch_compat/
   sources.py                HTTP fetch + on-disk (positive/negative) cache
   wheels.py                 parse the wheel index -> (torch, backend, python, platform)
   arch_lists.py             resolve build scripts + evaluate TORCH_CUDA_ARCH_LIST
   gpus.py                   curated NVIDIA GPU -> compute-capability dataset
+  config.py                 load/validate the YAML picker config
   table.py                  combine + render JSON / CSV / Markdown
   html.py                   render the self-contained interactive picker
-test_torch_compat.py        hermetic parser tests (pytest)
+test_torch_compat.py        hermetic parser + config tests (pytest)
 test_html.mjs               end-to-end jsdom test for docs/index.html (node)
 package.json                dev dependency (jsdom) + `npm test` for the web test
 data/                       generated table outputs (+ raw/ cache, gitignored)

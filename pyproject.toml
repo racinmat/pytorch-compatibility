@@ -5,9 +5,10 @@ description = "Deterministically extract a PyTorch / CUDA / compute-capability /
 readme = "readme.md"
 requires-python = ">=3.11"
 authors = [{ name = "Matěj Račinský", email = "matej.racinsky@gendigital.com" }]
-# Runtime uses only the Python standard library (urllib) so runs are portable and
-# reproducible with no third-party dependencies.
-dependencies = []
+# Data extraction uses only the Python standard library (urllib). The single
+# third-party dependency is PyYAML, used to read the picker config file; the
+# generated HTML itself stays fully self-contained.
+dependencies = ["pyyaml>=6.0"]
 
 [dependency-groups]
 dev = ["pytest>=8.0"]

@@ -1,0 +1,29 @@
+# Interactive picker configuration.
+#
+# This is the PUBLIC deployment config (GitHub Pages): every wheel index resolves
+# to the official download.pytorch.org URLs. For an internal deployment that
+# mirrors the indexes elsewhere, copy config.internal.example.yaml and generate
+# with:  uv run python generate.py --config config.internal.yaml
+#
+# All keys are optional; anything omitted falls back to the built-in default.
+
+# "public"   -> every channel resolves to <default_index_base><channel>.
+# "internal" -> ONLY channels listed in `index_overrides` are available; any
+#               other selected channel shows `missing_index_message`.
+mode: public
+
+# Base for the default public wheel indexes; the channel (cu126, cpu, rocm7.2, ...)
+# is appended, e.g. https://download.pytorch.org/whl/cu126
+default_index_base: "https://download.pytorch.org/whl/"
+
+# Explicit per-channel index URLs (e.g. internal mirrors). Keys are channel names.
+index_overrides: {}
+
+# Shown when mode is "internal" and a selected channel has no override above.
+missing_index_message: >-
+  This wheel index has not been mirrored yet — please request it and clone the
+  setup ticket to have it added.
+
+# Header links.
+repo_url: "https://github.com/racinmat/pytorch-compatibility"
+# table_url: null  # null -> derived from repo_url (…/blob/master/data/COMPATIBILITY.md)

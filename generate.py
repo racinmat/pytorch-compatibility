@@ -23,11 +23,12 @@ import argparse
 import sys
 from pathlib import Path
 
-from torch_compat import arch_lists, html, table
+from torch_compat import arch_lists, config as config_mod, html, table
 
 ROOT = Path(__file__).resolve().parent
 OUT_DIR = ROOT / "data"
 HTML_OUT = ROOT / "docs" / "index.html"
+CONFIG_PATH = ROOT / "config.yaml"
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -44,6 +45,13 @@ def main(argv: list[str] | None = None) -> int:
         "--no-html",
         action="store_true",
         help="Skip generating the interactive HTML picker.",
+    )
+    parser.add_argument(
+        "--config",
+        type=Path,
+        default=CONFIG_PATH,
+        help="Picker YAML config (index overrides, repo links). Default: ./config.yaml "
+        "(built-in public defaults if it does not exist).",
     )
     parser.add_argument("--quiet", action="store_true", help="Suppress progress output.")
     parser.add_argument(
@@ -70,7 +78,10 @@ def main(argv: list[str] | None = None) -> int:
     rows = table.generate(args.out, force=args.force, verbose=not args.quiet)
     cuda_rows = sum(1 for r in rows if r.backend == "cuda")
     if not args.no_html:
-        html.write_html(rows, args.html_out)
+        cfg = config_mod.load(args.config)
+        if not args.quiet:
+            print(f"Config: {args.config} (mode={cfg.mode}, {len(cfg.index_overrides)} index overrides)")
+        html.write_html(rows, args.html_out, config=cfg)
     if not args.quiet:
         print(f"\nDone. {len(rows)} rows ({cuda_rows} CUDA) written to {args.out}")
         for name in ("compatibility_table.json", "compatibility_matrix.csv", "COMPATIBILITY.md"):

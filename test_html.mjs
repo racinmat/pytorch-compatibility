@@ -23,15 +23,37 @@ let passed = 0;
 const checks = [];
 function check(name, fn) { checks.push([name, fn]); }
 
-// Fresh DOM per scenario so tests are independent.
-function load() {
+// Fresh DOM per scenario so tests are independent. Pass a config object to
+// simulate a different deployment (e.g. the internal Artifactory mirror) by
+// rewriting the embedded CFG — this is exactly what generate.py --config does.
+function load(cfg) {
   const errors = [];
-  const dom = new JSDOM(html, { runScripts: "dangerously" });
+  let src = html;
+  if (cfg) {
+    const replaced = src.replace(/const CFG = \{[^\n]*?\};/, "const CFG = " + JSON.stringify(cfg) + ";");
+    assert.notEqual(replaced, src, "failed to substitute CFG in the page");
+    src = replaced;
+  }
+  const dom = new JSDOM(src, { runScripts: "dangerously" });
   const { window } = dom;
   window.addEventListener("error", (e) => errors.push(String(e.error || e.message)));
   window.navigator.clipboard = { writeText: () => Promise.resolve() };
   return { window, doc: window.document, errors };
 }
+
+const ARTIFACTORY = "https://artifactory.ida.avast.com/artifactory/api/pypi/pytorch-whl-";
+const INTERNAL_CFG = {
+  mode: "internal",
+  default_index_base: "https://download.pytorch.org/whl/",
+  index_overrides: {
+    cu126: ARTIFACTORY + "cu126-remote/simple/",
+    cpu: ARTIFACTORY + "cpu-remote/simple/",
+    "rocm7.2": ARTIFACTORY + "rocm7.2-remote/simple/",
+  },
+  missing_index_message: "This index has not been mirrored yet — request it in #mlops-support (ticket MLOPS-1234).",
+};
+const platBtn = (doc, startsWith) =>
+  [...doc.querySelectorAll("#platform .opt")].find((o) => norm(o).startsWith(startsWith));
 
 const norm = (el) => (el ? el.textContent.replace(/\s+/g, " ").trim() : "");
 const opts = (doc, sel) => [...doc.querySelectorAll(sel)].map((o) => norm(o));
@@ -132,6 +154,20 @@ check("package-manager selection switches the shown command; uv emits an index c
   assert.match(text, /download\.pytorch\.org\/whl\/cu/, "config should point at the pytorch index");
 });
 
+check("Poetry emits a pyproject.toml source section (like uv) for non-default CUDA", () => {
+  const { window, doc } = load();
+  window.selectGpu("GeForce RTX 4090"); // non-default CUDA build
+  clickOpt(doc, "#manager", "Poetry");
+  const t = preText(doc);
+  assert.match(t, /\[\[tool\.poetry\.source\]\]/, "should include a poetry source section");
+  assert.match(t, /priority = "explicit"/);
+  assert.match(t, /\[tool\.poetry\.dependencies\]/);
+  assert.match(t, /torch = \{ version = "[^"]+", source = "pytorch" \}/, "torch dep must be pinned to the source");
+  assert.match(t, /download\.pytorch\.org\/whl\/cu\d+/, "source url must be the pytorch index");
+  // The CLI form is still offered too.
+  assert.match(t, /poetry source add --priority explicit pytorch/);
+});
+
 check("version links to its PyTorch GitHub release and updates the link", () => {
   const { doc } = load();
   const link = doc.getElementById("versionLink");
@@ -204,6 +240,56 @@ check("DGX Spark (CC 12.1) runs on a CC 12.0 CUDA build via minor-version forwar
   assert.match(doc.getElementById("gpuInfo").innerHTML, /compute capability <b>12\.1<\/b>/);
   // It is a native (binary) match on the 12.0 cubin, so no PTX-JIT warning should show.
   assert.doesNotMatch(doc.getElementById("gpuInfo").innerHTML, /PTX JIT/);
+});
+
+check("internal config: a mirrored channel (cu126) emits the Artifactory index for pip and uv", () => {
+  const { window, doc } = load(INTERNAL_CFG);
+  window.selectGpu("GeForce RTX 4090");
+  platBtn(doc, "CUDA 12.6").onclick();
+  assert.match(preText(doc), new RegExp("pip install .*--index-url " + ARTIFACTORY.replace(/[.]/g, "\\.") + "cu126-remote/simple/"));
+
+  clickOpt(doc, "#manager", "uv");
+  const t = preText(doc);
+  // uv must NOT use --torch-backend for a mirrored index; it must use the explicit URL + config.
+  assert.doesNotMatch(t, /--torch-backend/);
+  assert.match(t, /--index-url .*cu126-remote/);
+  assert.match(t, /\[\[tool\.uv\.index\]\][\s\S]*cu126-remote/);
+});
+
+check("internal config: a non-mirrored channel shows the placeholder message, no command", () => {
+  const { window, doc } = load(INTERNAL_CFG);
+  window.selectGpu("GeForce RTX 4090");
+  platBtn(doc, "CUDA 12.9").onclick(); // cu129 is not in index_overrides
+  assert.equal(preText(doc), "", "no install command should render for an unconfigured index");
+  assert.match(norm(doc.getElementById("commands")), /request it in #mlops-support/);
+  assert.match(doc.getElementById("indexInfo").innerHTML, /not configured/i);
+});
+
+check("internal config: the Linux pip-default build still works via a plain command", () => {
+  const { doc } = load(INTERNAL_CFG); // default 2.13 build is cu130 (not mirrored) but PyPI-served
+  const t = preText(doc);
+  assert.match(t, /^pip install torch==/m);
+  assert.doesNotMatch(t, /--index-url|artifactory/);
+});
+
+check("internal config: CPU and ROCm mirrored channels resolve to Artifactory", () => {
+  const { window, doc } = load(INTERNAL_CFG);
+  window.selectGpu("GeForce RTX 4090");
+  platBtn(doc, "CPU").onclick();
+  assert.match(preText(doc), /--index-url .*cpu-remote\/simple\//);
+
+  clickOpt(doc, "#vendor", "AMD");
+  window.selectGpu("Radeon RX 7900 XTX");
+  assert.ok(active(doc, "#platform")[0].startsWith("ROCm 7.2"), "AMD card should pick the mirrored ROCm 7.2");
+  assert.match(preText(doc), /--index-url .*rocm7\.2-remote\/simple\//);
+});
+
+check("public config (default): commands use download.pytorch.org, never Artifactory", () => {
+  const { window, doc } = load();
+  window.selectGpu("GeForce RTX 4090");
+  clickOpt(doc, "#manager", "uv");
+  const t = preText(doc);
+  assert.doesNotMatch(t, /artifactory/i);
 });
 
 check("header links to the GitHub repo and the Markdown compatibility table", () => {

@@ -11,3 +11,7 @@ node_modules/
 
 # IDE
 .idea/
+
+# Local (internal) picker config
+config.internal.yaml
+config.local.yaml

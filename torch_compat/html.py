@@ -15,10 +15,8 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 from . import gpus
+from .config import PickerConfig
 from .table import CompatRow, version_key
-
-DEFAULT_REPO_URL = "https://github.com/racinmat/pytorch-compatibility"
-DEFAULT_TABLE_PATH = "data/COMPATIBILITY.md"
 
 
 def _channel(backend: str, backend_version: str) -> str | None:
@@ -97,20 +95,19 @@ def write_html(
     rows: list[CompatRow],
     path: Path,
     *,
-    repo_url: str = DEFAULT_REPO_URL,
-    table_url: str | None = None,
+    config: PickerConfig | None = None,
 ) -> None:
-    if table_url is None:
-        table_url = repo_url.rstrip("/") + "/blob/master/" + DEFAULT_TABLE_PATH
+    cfg = config or PickerConfig()
     payload = build_payload(rows)
     gpu_list = [asdict(g) for g in gpus.GPUS]
     generated = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
     html = (
         _TEMPLATE.replace("__DATA__", json.dumps(payload, separators=(",", ":")))
         .replace("__GPUS__", json.dumps(gpu_list, separators=(",", ":")))
+        .replace("__CONFIG__", json.dumps(cfg.to_payload(), separators=(",", ":")))
         .replace("__GENERATED__", generated)
-        .replace("__REPO_URL__", repo_url)
-        .replace("__TABLE_URL__", table_url)
+        .replace("__REPO_URL__", cfg.repo_url)
+        .replace("__TABLE_URL__", cfg.resolved_table_url())
     )
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(html, encoding="utf-8")
@@ -238,6 +235,8 @@ _TEMPLATE = r"""<!DOCTYPE html>
           color: #fff; border-radius: 6px; padding: 5px 9px; font-size: 12px; cursor: pointer; }
   .copy:hover { background: var(--orange); }
   .warnmsg { color: var(--bad); font-weight: 600; padding: 6px 0; }
+  .missing-note { color: var(--warn); background: #fffbeb; border: 1px solid #fde68a;
+                  border-radius: 8px; padding: 12px 14px; font-size: 14px; }
   footer { max-width: 1040px; margin: 0 auto; padding: 8px 20px 40px; color: var(--muted); font-size: 12px; }
   a { color: var(--orange); }
 </style>
@@ -365,7 +364,24 @@ const DOCS = {
   amd_gpus: "https://rocm.docs.amd.com/projects/install-on-linux/en/latest/reference/system-requirements.html",
   amd_gfx: "https://llvm.org/docs/AMDGPUUsage.html#processors",
 };
-const BASE = "https://download.pytorch.org/whl/";
+const CFG = __CONFIG__;
+const BASE = CFG.default_index_base;
+
+// Resolve the wheel-index URL for a channel (cu126 / cpu / rocm7.2 / ...), honoring
+// config overrides. Returns null for the plain-PyPI (default) build, and for a
+// channel that has no index in "internal" mode (see indexMissing).
+function indexUrl(channel) {
+  if (!channel) return null;
+  const o = CFG.index_overrides || {};
+  if (o[channel]) return o[channel];
+  if (CFG.mode === "internal") return null;
+  return BASE + channel;
+}
+// True when a channel index is required but not configured (internal mode).
+function indexMissing(channel) {
+  const o = CFG.index_overrides || {};
+  return !!channel && CFG.mode === "internal" && !o[channel];
+}
 
 const state = { python: null, vendor: "nvidia", gpu: "", version: null, os: "linux", platform: null, manager: "pip", tv: null };
 const $ = (id) => document.getElementById(id);
@@ -440,15 +456,19 @@ function currentBuild() { return visibleBuilds().find((b) => b.key === state.pla
 
 function pickDefaultPlatform(builds) {
   const gpu = selectedGpu();
+  // Prefer a build whose wheel index is actually configured (matters in internal
+  // mode, where only mirrored channels are usable).
+  const avail = (b) => b.pypi_default || !indexMissing(b.channel);
   if (gpu && state.vendor === "nvidia") {
     const cuda = builds.filter((b) => b.backend === "cuda");
     const native = cuda.filter((b) => gpuSupport(gpu.cc, b.caps, b.ptx).mode === "native");
-    const pick = native[0] || cuda[0];
+    const pick = native.find(avail) || native[0] || cuda.find(avail) || cuda[0];
     if (pick) return pick.key;
   }
   if (gpu && state.vendor === "amd") {
     const rocm = builds.filter((b) => b.backend === "rocm" && rocmSupport(gpu, b.backend_version));
-    if (rocm[0]) return rocm[0].key;
+    const pick = rocm.find(avail) || rocm[0];
+    if (pick) return pick.key;
   }
   const dflt = builds.find((b) => b.pypi_default);
   if (dflt) return dflt.key;
@@ -705,7 +725,7 @@ function renderRangeNote() {
     s += "GPUs older than CC " + r.min + " have no wheel in this release. ";
     // Forward compatibility upward.
     s += "Newer cards of an already-built architecture still run via <b>binary forward-compatibility</b> — " +
-      "a CC " + r.max + " cubin also runs same-major GPUs with a higher minor.";
+      "a CC " + r.max + " cubin also runs same-major GPUs with a higher minor. ";
     s += r.anyPtx
       ? "With <code>+PTX</code>, even newer architectures run via a one-time JIT compile. "
       : "Only GPUs from an architecture major newer than " + maxMajor + ".x need a later torch release. ";
@@ -747,8 +767,10 @@ function managerBlocks() {
   const pkgs = pkgList().join(" ");
   const names = pkgNames();
   const channel = b.channel;           // cu129 / cpu / rocm6.2 / xpu / null
-  const url = channel ? BASE + channel : null;
   const isDefaultPypi = b.pypi_default && state.os === "linux";
+  if (!isDefaultPypi && indexMissing(channel)) return [];  // handled by renderCommands
+  const url = indexUrl(channel);
+  const overridden = !!(CFG.index_overrides && CFG.index_overrides[channel]);
   // When PyPI serves this exact build (mac default, or the Linux pip-default CUDA
   // build), no custom index / source is needed — the plain command is the command.
   const usePlain = isDefaultPypi || !url;
@@ -762,7 +784,11 @@ function managerBlocks() {
       blocks.push({ label: "uv pip", code: "uv pip install " + pkgs });
       blocks.push({ label: "uv project", code: "uv add " + pkgs });
     } else if (b.backend === "cuda") {
-      blocks.push({ label: "Quick (uv pip)", code: "uv pip install " + pkgs + " --torch-backend=" + channel });
+      // --torch-backend only knows the public download.pytorch.org indexes; a
+      // mirrored index must be passed explicitly.
+      blocks.push(overridden
+        ? { label: "Quick (uv pip)", code: "uv pip install " + pkgs + " --index-url " + url }
+        : { label: "Quick (uv pip)", code: "uv pip install " + pkgs + " --torch-backend=" + channel });
       const toml =
         "[[tool.uv.index]]\n" +
         'name = "pytorch"\n' +
@@ -773,7 +799,9 @@ function managerBlocks() {
       blocks.push({ label: "uv project — add to pyproject.toml", code: toml });
       blocks.push({ label: "then", code: "uv add " + pkgs });
     } else if (b.backend === "cpu") {
-      blocks.push({ code: "uv pip install " + pkgs + " --torch-backend=cpu" });
+      blocks.push({ code: overridden
+        ? "uv pip install " + pkgs + " --index-url " + url
+        : "uv pip install " + pkgs + " --torch-backend=cpu" });
     } else {
       blocks.push({ code: "uv pip install " + pkgs + " --index-url " + url });
     }
@@ -782,9 +810,22 @@ function managerBlocks() {
       blocks.push({ code: "poetry add " + pkgs });
     } else {
       blocks.push({
+        label: "Quick (CLI)",
         code: "poetry source add --priority explicit pytorch " + url + "\n" +
               "poetry add " + pkgs + " --source pytorch",
       });
+      const deps = pkgList().map((p) => {
+        const [n, v] = p.split("==");
+        return n + ' = { version = "' + (v || "*") + '", source = "pytorch" }';
+      }).join("\n");
+      const toml =
+        "[[tool.poetry.source]]\n" +
+        'name = "pytorch"\n' +
+        'url = "' + url + '"\n' +
+        'priority = "explicit"\n\n' +
+        "[tool.poetry.dependencies]\n" + deps;
+      blocks.push({ label: "poetry project — add to pyproject.toml", code: toml });
+      blocks.push({ label: "then", code: "poetry lock && poetry install" });
     }
   } else if (m === "pdm") {
     if (usePlain) {
@@ -810,12 +851,16 @@ function renderIndexInfo(b) {
     '/" target="_blank" rel="noopener"><code>PyPI</code> ↗</a>';
   const isDefaultPypi = b.pypi_default && state.os === "linux";
   if (isDefaultPypi) {
-    const url = BASE + b.channel;
+    const url = indexUrl(b.channel);
+    const mirror = url
+      ? ' (same wheels as <a href="' + url + '" target="_blank" rel="noopener"><code>' + url + "</code> ↗</a>)"
+      : "";
     el.innerHTML = "This is the default build a plain install gets on Linux — " + pypi +
-      ' serves it (same wheels as <a href="' + url + '" target="_blank" rel="noopener"><code>' +
-      url + "</code> ↗</a>), so no extra index or source is needed.";
+      " serves it" + mirror + ", so no extra index or source is needed.";
+  } else if (indexMissing(b.channel)) {
+    el.innerHTML = 'Wheel index <code>' + b.channel + "</code> is not configured for this deployment.";
   } else if (b.channel) {
-    const url = BASE + b.channel;
+    const url = indexUrl(b.channel);
     el.innerHTML = 'Wheel index for this build: <a href="' + url + '" target="_blank" rel="noopener"><code>' +
       url + "</code> ↗</a>";
   } else {
@@ -828,6 +873,14 @@ function renderCommands() {
   const b = currentBuild();
   renderIndexInfo(b);
   if (!b) { box.innerHTML = '<div class="warnmsg">No compatible build for this selection.</div>'; return; }
+  const isDefaultPypi = b.pypi_default && state.os === "linux";
+  if (!isDefaultPypi && indexMissing(b.channel)) {
+    const note = document.createElement("div");
+    note.className = "missing-note";
+    note.textContent = CFG.missing_index_message;
+    box.appendChild(note);
+    return;
+  }
   managerBlocks().forEach((blk) => {
     const wrap = document.createElement("div"); wrap.className = "cmd";
     if (blk.label) { const h = document.createElement("h3"); h.textContent = blk.label; wrap.appendChild(h); }
@@ -879,7 +932,11 @@ function tvGetVersion() { return DATA.versions.find((v) => v.version === state.t
 
 function _tvChannelCell(b) {
   if (b.channel) {
-    const url = BASE + b.channel;
+    if (indexMissing(b.channel)) {
+      return "<code>" + b.backend_version + '</code> <span class="tv-muted" title="' +
+        CFG.missing_index_message.replace(/"/g, "&quot;") + '">(index not configured)</span>';
+    }
+    const url = indexUrl(b.channel);
     return '<code><a href="' + url + '" target="_blank" rel="noopener">' + b.backend_version +
       "</a></code>";
   }

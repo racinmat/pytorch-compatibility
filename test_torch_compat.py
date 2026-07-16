@@ -6,7 +6,11 @@ lock in faithful evaluation of every upstream format we support.
 
 from __future__ import annotations
 
-from torch_compat import arch_lists, gpus, html, table, wheels
+import inspect
+
+import pytest
+
+from torch_compat import arch_lists, config, gpus, html, table, wheels
 
 # --- CUDA arch-list evaluation ---------------------------------------------
 
@@ -231,9 +235,80 @@ def test_gpu_dataset_valid():
     assert by_name["Radeon RX 7900 XTX"].vendor == "amd"
 
 
+# --- picker configuration --------------------------------------------------
+def test_config_defaults_are_public():
+    cfg = config.load(None)
+    assert cfg.mode == "public"
+    assert cfg.index_overrides == {}
+    assert cfg.default_index_base == "https://download.pytorch.org/whl/"
+    assert cfg.resolved_table_url().endswith("/blob/master/data/COMPATIBILITY.md")
+    payload = cfg.to_payload()
+    assert set(payload) == {"mode", "default_index_base", "index_overrides", "missing_index_message"}
+
+
+def test_config_missing_file_falls_back_to_defaults(tmp_path):
+    assert config.load(tmp_path / "nope.yaml").mode == "public"
+
+
+def test_config_internal_overrides(tmp_path):
+    p = tmp_path / "c.yaml"
+    p.write_text(
+        "mode: internal\n"
+        "index_overrides:\n"
+        '  cu126: "https://artifactory.example/cu126/simple/"\n'
+        '  cpu: "https://artifactory.example/cpu/simple/"\n'
+        'missing_index_message: "ask here"\n'
+        'repo_url: "https://git.internal/x"\n',
+        encoding="utf-8",
+    )
+    cfg = config.load(p)
+    assert cfg.mode == "internal"
+    assert cfg.index_overrides["cu126"] == "https://artifactory.example/cu126/simple/"
+    assert cfg.resolved_table_url() == "https://git.internal/x/blob/master/data/COMPATIBILITY.md"
+    assert cfg.to_payload()["missing_index_message"] == "ask here"
+
+
+def test_config_rejects_unknown_keys_and_bad_mode(tmp_path):
+    p = tmp_path / "bad.yaml"
+    p.write_text("bogus: 1\n", encoding="utf-8")
+    with pytest.raises(ValueError):
+        config.load(p)
+    p.write_text("mode: sideways\n", encoding="utf-8")
+    with pytest.raises(ValueError):
+        config.load(p)
+
+
+def test_write_html_embeds_config(tmp_path):
+    rows = table.build_rows(
+        wheels.parse_index("<a>torch-2.5.0+cu124-cp311-cp311-linux_x86_64.whl</a>")
+    )
+    cfg = config.PickerConfig(
+        mode="internal",
+        index_overrides={"cu124": "https://artifactory.example/cu124/simple/"},
+        missing_index_message="request it",
+    )
+    out = tmp_path / "index.html"
+    html.write_html(rows, out, config=cfg)
+    text = out.read_text(encoding="utf-8")
+    assert '"mode":"internal"' in text
+    assert "https://artifactory.example/cu124/simple/" in text
+
+
 if __name__ == "__main__":
+    import tempfile
+    from pathlib import Path
+
     fns = [v for k, v in sorted(globals().items()) if k.startswith("test_") and callable(v)]
+    ran = 0
     for fn in fns:
-        fn()
+        params = inspect.signature(fn).parameters
+        if "tmp_path" in params:
+            with tempfile.TemporaryDirectory() as d:
+                fn(Path(d))
+        elif params:
+            continue  # needs an unsupported fixture; run these via pytest
+        else:
+            fn()
+        ran += 1
         print(f"ok  {fn.__name__}")
-    print(f"\n{len(fns)} tests passed")
+    print(f"\n{ran} tests passed")
