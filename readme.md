@@ -177,7 +177,7 @@ Config keys (all optional; omitted keys fall back to built-in defaults):
 | `mode` | `public` (resolve every channel to `default_index_base`) or `internal` (only listed channels are usable) |
 | `default_index_base` | base URL the channel is appended to (default `https://download.pytorch.org/whl/`) |
 | `index_overrides` | map of `channel -> index URL` (e.g. an internal mirror); takes precedence in any mode |
-| `missing_index_message` | shown in `internal` mode when a selected channel has no override |
+| `missing_index_message` | shown in `internal` mode when a selected channel has no override; may contain **HTML** (links render), and the `{channel}` / `<channel>` token is replaced with the selected channel (e.g. to prefill a "create ticket" link) |
 | `repo_url` | header "GitHub repo" link |
 | `table_url` | header "Compatibility table" link (defaults to `<repo_url>/blob/master/data/COMPATIBILITY.md`) |
 

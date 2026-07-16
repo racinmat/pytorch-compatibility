@@ -50,7 +50,10 @@ const INTERNAL_CFG = {
     cpu: ARTIFACTORY + "cpu-remote/simple/",
     "rocm7.2": ARTIFACTORY + "rocm7.2-remote/simple/",
   },
-  missing_index_message: "This index has not been mirrored yet — request it in #mlops-support (ticket MLOPS-1234).",
+  missing_index_message:
+    'The <code>pytorch-whl-{channel}-remote</code> index is not mirrored yet — ' +
+    '<a href="https://jira.example/secure/CreateIssueDetails!init.jspa?pid=1&amp;summary=Mirror%20pytorch-whl-{channel}-remote">open a request</a> ' +
+    'or clone <a href="https://jira.example/browse/BLD-11022">BLD-11022</a>.',
 };
 const platBtn = (doc, startsWith) =>
   [...doc.querySelectorAll("#platform .opt")].find((o) => norm(o).startsWith(startsWith));
@@ -270,12 +273,23 @@ check("internal config: a mirrored channel (cu126) emits the Artifactory index f
   assert.match(t, /\[\[tool\.uv\.index\]\][\s\S]*cu126-remote/);
 });
 
-check("internal config: a non-mirrored channel shows the placeholder message, no command", () => {
+check("internal config: a non-mirrored channel shows the placeholder message (HTML links, {channel} filled), no command", () => {
   const { window, doc } = load(INTERNAL_CFG);
   window.selectGpu("GeForce RTX 4090");
   platBtn(doc, "CUDA 12.9").onclick(); // cu129 is not in index_overrides
   assert.equal(preText(doc), "", "no install command should render for an unconfigured index");
-  assert.match(norm(doc.getElementById("commands")), /request it in #mlops-support/);
+
+  const note = doc.querySelector("#commands .missing-note");
+  assert.ok(note, "a missing-index note should render");
+  // The message is rendered as HTML: links become real anchors, not plaintext.
+  const links = [...note.querySelectorAll("a")];
+  assert.ok(links.length >= 2, "message links must render as <a> elements");
+  assert.ok(links.some((a) => /BLD-11022/.test(a.getAttribute("href"))), "clone-ticket link present");
+  // {channel} is substituted with the selected channel everywhere (text + URLs).
+  assert.match(note.innerHTML, /pytorch-whl-cu129-remote/);
+  assert.doesNotMatch(note.innerHTML, /\{channel\}/, "no unsubstituted {channel} token left");
+  assert.ok(links.some((a) => /summary=Mirror%20pytorch-whl-cu129-remote/.test(a.getAttribute("href"))),
+    "create-ticket URL should carry the channel-filled summary");
   assert.match(doc.getElementById("indexInfo").innerHTML, /not configured/i);
 });
 

@@ -20,9 +20,11 @@ default_index_base: "https://download.pytorch.org/whl/"
 index_overrides: {}
 
 # Shown when mode is "internal" and a selected channel has no override above.
+# May contain HTML (e.g. <a href="...">links</a>); it is rendered as HTML. The
+# tokens {channel} and <channel> are replaced with the selected channel name.
 missing_index_message: >-
-  This wheel index has not been mirrored yet — please request it and clone the
-  setup ticket to have it added.
+  The wheel index for {channel} has not been mirrored yet — please request it and
+  clone the setup ticket to have it added.
 
 # Header links.
 repo_url: "https://github.com/racinmat/pytorch-compatibility"

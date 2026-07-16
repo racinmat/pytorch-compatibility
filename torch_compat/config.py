@@ -20,9 +20,11 @@ from pathlib import Path
 DEFAULT_REPO_URL = "https://github.com/racinmat/pytorch-compatibility"
 DEFAULT_TABLE_PATH = "data/COMPATIBILITY.md"
 DEFAULT_INDEX_BASE = "https://download.pytorch.org/whl/"
+# May contain HTML (e.g. <a> links); it is rendered as HTML in the picker. The
+# tokens {channel} and <channel> are replaced with the selected channel name.
 DEFAULT_MISSING_MESSAGE = (
-    "This wheel index has not been mirrored yet — please request it and clone "
-    "the setup ticket to have it added."
+    "The wheel index for {channel} has not been mirrored yet — please request it "
+    "and clone the setup ticket to have it added."
 )
 
 

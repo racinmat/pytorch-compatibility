@@ -382,6 +382,16 @@ function indexMissing(channel) {
   const o = CFG.index_overrides || {};
   return !!channel && CFG.mode === "internal" && !o[channel];
 }
+// The "missing index" message, with the {channel} / <channel> placeholder filled
+// in. The message may contain HTML (e.g. links to a ticket), so it is inserted
+// as innerHTML; missingMsgText() is the tag-stripped form for title attributes.
+function missingMsgHtml(channel) {
+  const ch = channel || "";
+  return (CFG.missing_index_message || "").split("{channel}").join(ch).split("<channel>").join(ch);
+}
+function missingMsgText(channel) {
+  return missingMsgHtml(channel).replace(/<[^>]+>/g, "");
+}
 
 const state = { python: null, vendor: "nvidia", gpu: "", version: null, os: "linux", platform: null, manager: "pip", tv: null };
 const $ = (id) => document.getElementById(id);
@@ -876,7 +886,7 @@ function renderCommands() {
   if (!isDefaultPypi && indexMissing(b.channel)) {
     const note = document.createElement("div");
     note.className = "missing-note";
-    note.textContent = CFG.missing_index_message;
+    note.innerHTML = missingMsgHtml(b.channel);
     box.appendChild(note);
     return;
   }
@@ -933,7 +943,7 @@ function _tvChannelCell(b) {
   if (b.channel) {
     if (indexMissing(b.channel)) {
       return "<code>" + b.backend_version + '</code> <span class="tv-muted" title="' +
-        CFG.missing_index_message.replace(/"/g, "&quot;") + '">(index not configured)</span>';
+        missingMsgText(b.channel).replace(/"/g, "&quot;") + '">(index not configured)</span>';
     }
     const url = indexUrl(b.channel);
     return '<code><a href="' + url + '" target="_blank" rel="noopener">' + b.backend_version +
