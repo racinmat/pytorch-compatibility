@@ -154,6 +154,19 @@ check("package-manager selection switches the shown command; uv emits an index c
   assert.match(text, /download\.pytorch\.org\/whl\/cu/, "config should point at the pytorch index");
 });
 
+check("uv shows the pyproject.toml index snippet for every non-default backend (e.g. CPU), not just CUDA", () => {
+  const { doc } = load();
+  platBtn(doc, "CPU").onclick(); // CPU is a non-default index on Linux
+  clickOpt(doc, "#manager", "uv");
+  const t = preText(doc);
+  assert.match(t, /uv pip install .*--torch-backend=cpu/, "quick command still uses --torch-backend=cpu");
+  assert.match(t, /\[\[tool\.uv\.index\]\]/, "CPU (non-default) must also show the uv pyproject snippet");
+  assert.match(t, /download\.pytorch\.org\/whl\/cpu/, "snippet url points at the cpu index");
+  assert.match(t, /\[tool\.uv\.sources\][\s\S]*torch = \{ index = "pytorch-cpu" \}/,
+    "index name should reflect the channel (pytorch-cpu)");
+  assert.match(t, /uv add torch==/, "should include the 'then: uv add' step");
+});
+
 check("Poetry emits a pyproject.toml source section (like uv) for non-default CUDA", () => {
   const { window, doc } = load();
   window.selectGpu("GeForce RTX 4090"); // non-default CUDA build
@@ -162,10 +175,11 @@ check("Poetry emits a pyproject.toml source section (like uv) for non-default CU
   assert.match(t, /\[\[tool\.poetry\.source\]\]/, "should include a poetry source section");
   assert.match(t, /priority = "explicit"/);
   assert.match(t, /\[tool\.poetry\.dependencies\]/);
-  assert.match(t, /torch = \{ version = "[^"]+", source = "pytorch" \}/, "torch dep must be pinned to the source");
+  assert.match(t, /torch = \{ version = "[^"]+", source = "pytorch-cu\d+" \}/, "torch dep must be pinned to the channel-named source");
   assert.match(t, /download\.pytorch\.org\/whl\/cu\d+/, "source url must be the pytorch index");
-  // The CLI form is still offered too.
-  assert.match(t, /poetry source add --priority explicit pytorch/);
+  // The CLI form is still offered too, with the channel-reflecting source name.
+  assert.match(t, /poetry source add --priority explicit pytorch-cu\d+ /);
+  assert.match(t, /poetry add .*--source pytorch-cu\d+/);
 });
 
 check("version links to its PyTorch GitHub release and updates the link", () => {

@@ -1,5 +1,5 @@
 # Example INTERNAL deployment config: the download.pytorch.org/whl/<channel>
-# indexes are mirrored behind an Artifactory remote. Copy this to
+# indexes are mirrored behind an corporate proxy. Copy this to
 # config.internal.yaml (gitignored) and adjust, then generate with:
 #
 #     uv run python generate.py --config config.internal.yaml
@@ -15,16 +15,16 @@ mode: internal
 default_index_base: "https://download.pytorch.org/whl/"
 
 # https://download.pytorch.org/whl/<channel>
-#   -> https://artifactory.ida.avast.com/artifactory/api/pypi/pytorch-whl-<channel>-remote/simple/
+#   -> https://artifacts.int.example.com/artifacts/api/pypi/pytorch-whl-<channel>-remote/simple/
 index_overrides:
-  cu126: "https://artifactory.ida.avast.com/artifactory/api/pypi/pytorch-whl-cu126-remote/simple/"
-  cpu: "https://artifactory.ida.avast.com/artifactory/api/pypi/pytorch-whl-cpu-remote/simple/"
-  rocm7.2: "https://artifactory.ida.avast.com/artifactory/api/pypi/pytorch-whl-rocm7.2-remote/simple/"
+  cu126: "https://artifacts.int.example.com/artifacts/api/pypi/pytorch-whl-cu126-remote/simple/"
+  cpu: "https://artifacts.int.example.com/artifacts/api/pypi/pytorch-whl-cpu-remote/simple/"
+  rocm7.2: "https://artifacts.int.example.com/artifacts/api/pypi/pytorch-whl-rocm7.2-remote/simple/"
 
 missing_index_message: >-
-  This wheel index has not been mirrored to Artifactory yet. Please request it in
-  #mlops-support and clone ticket MLOPS-1234 to have the pytorch-whl-<channel>-remote
+  This wheel index has not been mirrored to artifacts yet. Please request it in
+  #python-support and clone ticket PYTHON-1234 to have the pytorch-whl-<channel>-remote
   repository created.
 
 # Point the header at the internal mirror of the repo, if any.
-repo_url: "https://github.com/racinmat/pytorch-compatibility"
+repo_url: "https://git.int.avast.com/racinmat/pytorch-compatibility"

@@ -770,6 +770,7 @@ function managerBlocks() {
   const isDefaultPypi = b.pypi_default && state.os === "linux";
   if (!isDefaultPypi && indexMissing(channel)) return [];  // handled by renderCommands
   const url = indexUrl(channel);
+  const idxName = channel ? "pytorch-" + channel : "pytorch";  // pytorch-cu126 / pytorch-cpu / ...
   const overridden = !!(CFG.index_overrides && CFG.index_overrides[channel]);
   // When PyPI serves this exact build (mac default, or the Linux pip-default CUDA
   // build), no custom index / source is needed — the plain command is the command.
@@ -783,27 +784,25 @@ function managerBlocks() {
     if (usePlain) {
       blocks.push({ label: "uv pip", code: "uv pip install " + pkgs });
       blocks.push({ label: "uv project", code: "uv add " + pkgs });
-    } else if (b.backend === "cuda") {
-      // --torch-backend only knows the public download.pytorch.org indexes; a
-      // mirrored index must be passed explicitly.
-      blocks.push(overridden
-        ? { label: "Quick (uv pip)", code: "uv pip install " + pkgs + " --index-url " + url }
-        : { label: "Quick (uv pip)", code: "uv pip install " + pkgs + " --torch-backend=" + channel });
+    } else {
+      // --torch-backend knows only the public download.pytorch.org cuda/cpu
+      // indexes; a mirrored index or a rocm/xpu index must be passed explicitly.
+      const canBackend = !overridden && (b.backend === "cuda" || b.backend === "cpu");
+      blocks.push({
+        label: "Quick (uv pip)",
+        code: canBackend
+          ? "uv pip install " + pkgs + " --torch-backend=" + channel
+          : "uv pip install " + pkgs + " --index-url " + url,
+      });
       const toml =
         "[[tool.uv.index]]\n" +
-        'name = "pytorch"\n' +
+        'name = "' + idxName + '"\n' +
         'url = "' + url + '"\n' +
         "explicit = true\n\n" +
         "[tool.uv.sources]\n" +
-        names.map((n) => n + ' = { index = "pytorch" }').join("\n");
+        names.map((n) => n + ' = { index = "' + idxName + '" }').join("\n");
       blocks.push({ label: "uv project — add to pyproject.toml", code: toml });
       blocks.push({ label: "then", code: "uv add " + pkgs });
-    } else if (b.backend === "cpu") {
-      blocks.push({ code: overridden
-        ? "uv pip install " + pkgs + " --index-url " + url
-        : "uv pip install " + pkgs + " --torch-backend=cpu" });
-    } else {
-      blocks.push({ code: "uv pip install " + pkgs + " --index-url " + url });
     }
   } else if (m === "poetry") {
     if (usePlain) {
@@ -811,16 +810,16 @@ function managerBlocks() {
     } else {
       blocks.push({
         label: "Quick (CLI)",
-        code: "poetry source add --priority explicit pytorch " + url + "\n" +
-              "poetry add " + pkgs + " --source pytorch",
+        code: "poetry source add --priority explicit " + idxName + " " + url + "\n" +
+              "poetry add " + pkgs + " --source " + idxName,
       });
       const deps = pkgList().map((p) => {
         const [n, v] = p.split("==");
-        return n + ' = { version = "' + (v || "*") + '", source = "pytorch" }';
+        return n + ' = { version = "' + (v || "*") + '", source = "' + idxName + '" }';
       }).join("\n");
       const toml =
         "[[tool.poetry.source]]\n" +
-        'name = "pytorch"\n' +
+        'name = "' + idxName + '"\n' +
         'url = "' + url + '"\n' +
         'priority = "explicit"\n\n' +
         "[tool.poetry.dependencies]\n" + deps;
@@ -833,7 +832,7 @@ function managerBlocks() {
     } else {
       const toml =
         "[[tool.pdm.source]]\n" +
-        'name = "pytorch"\n' +
+        'name = "' + idxName + '"\n' +
         'url = "' + url + '"\n' +
         'type = "index"\n' +
         "include_packages = [" + names.map((n) => '"' + n + '"').join(", ") + "]";
