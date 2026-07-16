@@ -183,14 +183,14 @@ Config keys (all optional; omitted keys fall back to built-in defaults):
 
 For example, the internal deployment maps each
 `https://download.pytorch.org/whl/<channel>` to
-`https://artifactory.ida.avast.com/artifactory/api/pypi/pytorch-whl-<channel>-remote/simple/`:
+`https://artifacts.int.example.com/artifactory/api/pypi/pytorch-whl-<channel>-remote/simple/`:
 
 ```yaml
 mode: internal
 index_overrides:
-  cu126: "https://artifactory.ida.avast.com/artifactory/api/pypi/pytorch-whl-cu126-remote/simple/"
-  cpu:   "https://artifactory.ida.avast.com/artifactory/api/pypi/pytorch-whl-cpu-remote/simple/"
-  rocm7.2: "https://artifactory.ida.avast.com/artifactory/api/pypi/pytorch-whl-rocm7.2-remote/simple/"
+  cu126: "https://artifacts.int.example.com/artifactory/api/pypi/pytorch-whl-cu126-remote/simple/"
+  cpu:   "https://artifacts.int.example.com/artifactory/api/pypi/pytorch-whl-cpu-remote/simple/"
+  rocm7.2: "https://artifacts.int.example.com/artifactory/api/pypi/pytorch-whl-rocm7.2-remote/simple/"
 missing_index_message: >-
   This wheel index has not been mirrored yet — request it and clone the setup ticket.
 ```

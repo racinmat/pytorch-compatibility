@@ -41,7 +41,7 @@ function load(cfg) {
   return { window, doc: window.document, errors };
 }
 
-const ARTIFACTORY = "https://artifactory.ida.avast.com/artifactory/api/pypi/pytorch-whl-";
+const ARTIFACTORY = "https://artifacts.int.example.com/artifactory/api/pypi/pytorch-whl-";
 const INTERNAL_CFG = {
   mode: "internal",
   default_index_base: "https://download.pytorch.org/whl/",
