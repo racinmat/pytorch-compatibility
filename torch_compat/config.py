@@ -37,9 +37,11 @@ class PickerConfig:
     index_overrides: dict[str, str] = field(default_factory=dict)
     missing_index_message: str = DEFAULT_MISSING_MESSAGE
     repo_url: str = DEFAULT_REPO_URL
+    table_url: str | None = None
 
     def resolved_table_url(self) -> str:
-        """Header "Compatibility table" link, always derived from ``repo_url`` (master)."""
+        if self.table_url:
+            return self.table_url
         return self.repo_url.rstrip("/") + "/blob/master/" + DEFAULT_TABLE_PATH
 
     def to_payload(self) -> dict:
@@ -86,4 +88,5 @@ def load(path: Path | str | None) -> PickerConfig:
         index_overrides=overrides,
         missing_index_message=str(raw.get("missing_index_message", DEFAULT_MISSING_MESSAGE)),
         repo_url=str(raw.get("repo_url", DEFAULT_REPO_URL)),
+        table_url=raw.get("table_url"),
     )

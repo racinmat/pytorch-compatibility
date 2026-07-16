@@ -26,6 +26,6 @@ missing_index_message: >-
   The wheel index for {channel} has not been mirrored yet — please request it and
   clone the setup ticket to have it added.
 
-# Header links. The GitHub-repo button uses this directly; the "Compatibility
-# table (Markdown)" button is derived as <repo_url>/blob/master/data/COMPATIBILITY.md.
+# Header links.
 repo_url: "https://github.com/racinmat/pytorch-compatibility"
+# table_url: null  # null -> derived from repo_url (…/blob/master/data/COMPATIBILITY.md)
