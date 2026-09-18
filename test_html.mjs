@@ -275,6 +275,9 @@ check("internal config: a mirrored channel (cu126) emits the Artifactory index f
 
 check("internal config: a non-mirrored channel shows the placeholder message (HTML links, {channel} filled), no command", () => {
   const { window, doc } = load(INTERNAL_CFG);
+  const versionSel = doc.getElementById("version");
+  versionSel.value = "2.13.0"; // last version with a cu129 build
+  versionSel.onchange({ target: versionSel });
   window.selectGpu("GeForce RTX 4090");
   platBtn(doc, "CUDA 12.9").onclick(); // cu129 is not in index_overrides
   assert.equal(preText(doc), "", "no install command should render for an unconfigured index");
@@ -294,7 +297,7 @@ check("internal config: a non-mirrored channel shows the placeholder message (HT
 });
 
 check("internal config: the Linux pip-default build still works via a plain command", () => {
-  const { doc } = load(INTERNAL_CFG); // default 2.13 build is cu130 (not mirrored) but PyPI-served
+  const { doc } = load(INTERNAL_CFG); // latest version's pip-default build is cu130 (not mirrored) but PyPI-served
   const t = preText(doc);
   assert.match(t, /^pip install torch==/m);
   assert.doesNotMatch(t, /--index-url|artifactory/);

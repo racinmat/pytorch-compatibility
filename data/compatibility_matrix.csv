@@ -336,3 +336,11 @@ torch_version,release_date,backend,backend_version,python_min,python_max,pythons
 2.13.0,2026-07-08,rocm,7.1,3.10,3.15,3.10 3.11 3.12 3.13 3.14 3.15,,,False,linux/x86_64,False,True,False,
 2.13.0,2026-07-08,rocm,7.2,3.10,3.15,3.10 3.11 3.12 3.13 3.14 3.15,,,False,linux/x86_64,False,True,False,
 2.13.0,2026-07-08,xpu,,3.10,3.15,3.10 3.11 3.12 3.13 3.14 3.15,,,False,linux/x86_64 windows/x86_64,False,True,False,
+2.14.0,2026-09-02,cpu,,3.10,3.15,3.10 3.11 3.12 3.13 3.14 3.15,,,False,linux/aarch64 linux/s390x linux/x86_64 windows/arm64 windows/x86_64,False,True,False,
+2.14.0,2026-09-02,cuda,12.6,3.10,3.15,3.10 3.11 3.12 3.13 3.14 3.15,5.0;6.0;7.0;7.5;8.0;8.6;9.0,5.0;6.0;7.0;7.5;8.0;8.6;9.0,False,linux/aarch64 linux/x86_64 windows/x86_64,False,True,False,https://raw.githubusercontent.com/pytorch/pytorch/v2.14.0/.ci/manywheel/build_env_setup.py
+2.14.0,2026-09-02,cuda,13.0,3.10,3.15,3.10 3.11 3.12 3.13 3.14 3.15,7.5;8.0;8.6;9.0;10.0;12.0,7.5;8.0;8.6;9.0;10.0;12.0,False,linux/aarch64 linux/x86_64 windows/x86_64,False,True,True,https://raw.githubusercontent.com/pytorch/pytorch/v2.14.0/.ci/manywheel/build_env_setup.py
+2.14.0,2026-09-02,cuda,13.2,3.10,3.15,3.10 3.11 3.12 3.13 3.14 3.15,7.5;8.0;8.6;9.0;10.0;12.0,7.5;8.0;8.6;9.0;10.0;12.0,False,linux/aarch64 linux/x86_64 windows/x86_64,False,True,False,https://raw.githubusercontent.com/pytorch/pytorch/v2.14.0/.ci/manywheel/build_env_setup.py
+2.14.0,2026-09-02,default,,3.10,3.15,3.10 3.11 3.12 3.13 3.14 3.15,,,False,macos/arm64,True,True,False,
+2.14.0,2026-09-02,rocm,7.2,3.10,3.15,3.10 3.11 3.12 3.13 3.14 3.15,,,False,linux/x86_64,False,True,False,
+2.14.0,2026-09-02,rocm,7.14,3.10,3.15,3.10 3.11 3.12 3.13 3.14 3.15,,,False,linux/x86_64,False,True,False,
+2.14.0,2026-09-02,xpu,,3.10,3.15,3.10 3.11 3.12 3.13 3.14 3.15,,,False,linux/x86_64 windows/x86_64,False,True,False,

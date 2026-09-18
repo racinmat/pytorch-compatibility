@@ -9279,5 +9279,246 @@
     "version_on_pypi": true,
     "pypi_linux_default": false,
     "arch_source_url": ""
+  },
+  {
+    "torch_version": "2.14.0",
+    "release_date": "2026-09-02",
+    "backend": "cpu",
+    "backend_version": "",
+    "python_min": "3.10",
+    "python_max": "3.15",
+    "pythons": [
+      "3.10",
+      "3.11",
+      "3.12",
+      "3.13",
+      "3.14",
+      "3.15"
+    ],
+    "compute_capabilities": [],
+    "arch_list_raw": "",
+    "has_ptx": false,
+    "platforms": [
+      "linux/aarch64",
+      "linux/s390x",
+      "linux/x86_64",
+      "windows/arm64",
+      "windows/x86_64"
+    ],
+    "on_pypi": false,
+    "version_on_pypi": true,
+    "pypi_linux_default": false,
+    "arch_source_url": ""
+  },
+  {
+    "torch_version": "2.14.0",
+    "release_date": "2026-09-02",
+    "backend": "cuda",
+    "backend_version": "12.6",
+    "python_min": "3.10",
+    "python_max": "3.15",
+    "pythons": [
+      "3.10",
+      "3.11",
+      "3.12",
+      "3.13",
+      "3.14",
+      "3.15"
+    ],
+    "compute_capabilities": [
+      "5.0",
+      "6.0",
+      "7.0",
+      "7.5",
+      "8.0",
+      "8.6",
+      "9.0"
+    ],
+    "arch_list_raw": "5.0;6.0;7.0;7.5;8.0;8.6;9.0",
+    "has_ptx": false,
+    "platforms": [
+      "linux/aarch64",
+      "linux/x86_64",
+      "windows/x86_64"
+    ],
+    "on_pypi": false,
+    "version_on_pypi": true,
+    "pypi_linux_default": false,
+    "arch_source_url": "https://raw.githubusercontent.com/pytorch/pytorch/v2.14.0/.ci/manywheel/build_env_setup.py"
+  },
+  {
+    "torch_version": "2.14.0",
+    "release_date": "2026-09-02",
+    "backend": "cuda",
+    "backend_version": "13.0",
+    "python_min": "3.10",
+    "python_max": "3.15",
+    "pythons": [
+      "3.10",
+      "3.11",
+      "3.12",
+      "3.13",
+      "3.14",
+      "3.15"
+    ],
+    "compute_capabilities": [
+      "7.5",
+      "8.0",
+      "8.6",
+      "9.0",
+      "10.0",
+      "12.0"
+    ],
+    "arch_list_raw": "7.5;8.0;8.6;9.0;10.0;12.0",
+    "has_ptx": false,
+    "platforms": [
+      "linux/aarch64",
+      "linux/x86_64",
+      "windows/x86_64"
+    ],
+    "on_pypi": false,
+    "version_on_pypi": true,
+    "pypi_linux_default": true,
+    "arch_source_url": "https://raw.githubusercontent.com/pytorch/pytorch/v2.14.0/.ci/manywheel/build_env_setup.py"
+  },
+  {
+    "torch_version": "2.14.0",
+    "release_date": "2026-09-02",
+    "backend": "cuda",
+    "backend_version": "13.2",
+    "python_min": "3.10",
+    "python_max": "3.15",
+    "pythons": [
+      "3.10",
+      "3.11",
+      "3.12",
+      "3.13",
+      "3.14",
+      "3.15"
+    ],
+    "compute_capabilities": [
+      "7.5",
+      "8.0",
+      "8.6",
+      "9.0",
+      "10.0",
+      "12.0"
+    ],
+    "arch_list_raw": "7.5;8.0;8.6;9.0;10.0;12.0",
+    "has_ptx": false,
+    "platforms": [
+      "linux/aarch64",
+      "linux/x86_64",
+      "windows/x86_64"
+    ],
+    "on_pypi": false,
+    "version_on_pypi": true,
+    "pypi_linux_default": false,
+    "arch_source_url": "https://raw.githubusercontent.com/pytorch/pytorch/v2.14.0/.ci/manywheel/build_env_setup.py"
+  },
+  {
+    "torch_version": "2.14.0",
+    "release_date": "2026-09-02",
+    "backend": "default",
+    "backend_version": "",
+    "python_min": "3.10",
+    "python_max": "3.15",
+    "pythons": [
+      "3.10",
+      "3.11",
+      "3.12",
+      "3.13",
+      "3.14",
+      "3.15"
+    ],
+    "compute_capabilities": [],
+    "arch_list_raw": "",
+    "has_ptx": false,
+    "platforms": [
+      "macos/arm64"
+    ],
+    "on_pypi": true,
+    "version_on_pypi": true,
+    "pypi_linux_default": false,
+    "arch_source_url": ""
+  },
+  {
+    "torch_version": "2.14.0",
+    "release_date": "2026-09-02",
+    "backend": "rocm",
+    "backend_version": "7.2",
+    "python_min": "3.10",
+    "python_max": "3.15",
+    "pythons": [
+      "3.10",
+      "3.11",
+      "3.12",
+      "3.13",
+      "3.14",
+      "3.15"
+    ],
+    "compute_capabilities": [],
+    "arch_list_raw": "",
+    "has_ptx": false,
+    "platforms": [
+      "linux/x86_64"
+    ],
+    "on_pypi": false,
+    "version_on_pypi": true,
+    "pypi_linux_default": false,
+    "arch_source_url": ""
+  },
+  {
+    "torch_version": "2.14.0",
+    "release_date": "2026-09-02",
+    "backend": "rocm",
+    "backend_version": "7.14",
+    "python_min": "3.10",
+    "python_max": "3.15",
+    "pythons": [
+      "3.10",
+      "3.11",
+      "3.12",
+      "3.13",
+      "3.14",
+      "3.15"
+    ],
+    "compute_capabilities": [],
+    "arch_list_raw": "",
+    "has_ptx": false,
+    "platforms": [
+      "linux/x86_64"
+    ],
+    "on_pypi": false,
+    "version_on_pypi": true,
+    "pypi_linux_default": false,
+    "arch_source_url": ""
+  },
+  {
+    "torch_version": "2.14.0",
+    "release_date": "2026-09-02",
+    "backend": "xpu",
+    "backend_version": "",
+    "python_min": "3.10",
+    "python_max": "3.15",
+    "pythons": [
+      "3.10",
+      "3.11",
+      "3.12",
+      "3.13",
+      "3.14",
+      "3.15"
+    ],
+    "compute_capabilities": [],
+    "arch_list_raw": "",
+    "has_ptx": false,
+    "platforms": [
+      "linux/x86_64",
+      "windows/x86_64"
+    ],
+    "on_pypi": false,
+    "version_on_pypi": true,
+    "pypi_linux_default": false,
+    "arch_source_url": ""
   }
 ]
