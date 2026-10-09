@@ -8,12 +8,13 @@ import re
 from collections import defaultdict
 from dataclasses import asdict, dataclass
 from pathlib import Path
+from typing import Any
 
 from . import arch_lists, wheels
 from .wheels import WheelRow
 
 
-def version_key(v: str) -> tuple:
+def version_key(v: str) -> tuple[int, int, int, int, int]:
     nums = [int(x) for x in re.findall(r"\d+", v)[:4]]
     while len(nums) < 4:
         nums.append(0)
@@ -22,7 +23,7 @@ def version_key(v: str) -> tuple:
     return (nums[0], nums[1], nums[2], pre, nums[3])
 
 
-def python_key(p: str) -> tuple:
+def python_key(p: str) -> tuple[int, ...]:
     nums = [int(x) for x in re.findall(r"\d+", p)]
     return tuple(nums) if nums else (0,)
 
@@ -40,8 +41,8 @@ class CompatRow:
     arch_list_raw: str
     has_ptx: bool
     platforms: list[str]
-    on_pypi: bool          # this exact build is downloadable from PyPI
-    version_on_pypi: bool   # any build of this torch version is on PyPI (else alt registry only)
+    on_pypi: bool  # this exact build is downloadable from PyPI
+    version_on_pypi: bool  # any build of this torch version is on PyPI (else alt registry only)
     pypi_linux_default: bool  # this CUDA build is what a bare `pip install torch` gives on Linux
     arch_source_url: str
 
@@ -56,7 +57,7 @@ def build_rows(
 ) -> list[CompatRow]:
     pypi_filenames = pypi_filenames or set()
     pypi_default_cuda = pypi_default_cuda or {}
-    groups: dict[tuple[str, str, str], dict] = defaultdict(
+    groups: dict[tuple[str, str, str], dict[str, Any]] = defaultdict(
         lambda: {"pythons": set(), "platforms": set(), "on_pypi": False}
     )
     # Release date of a torch version = earliest wheel upload date across all its wheels.
@@ -86,9 +87,7 @@ def build_rows(
             if ck not in arch_cache:
                 if verbose:
                     print(f"  arch list: torch {torch_version} cuda {backend_version}")
-                arch_cache[ck] = arch_lists.arch_result(
-                    torch_version, backend_version, force=force
-                )
+                arch_cache[ck] = arch_lists.arch_result(torch_version, backend_version, force=force)
             res = arch_cache[ck]
             if res is not None:
                 caps = list(res.capabilities)
@@ -134,10 +133,9 @@ def build_rows(
 
 # --- rendering --------------------------------------------------------------
 
+
 def write_json(rows: list[CompatRow], path: Path) -> None:
-    path.write_text(
-        json.dumps([asdict(r) for r in rows], indent=2) + "\n", encoding="utf-8"
-    )
+    path.write_text(json.dumps([asdict(r) for r in rows], indent=2) + "\n", encoding="utf-8")
 
 
 def write_csv(rows: list[CompatRow], path: Path) -> None:

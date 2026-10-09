@@ -11,8 +11,9 @@ from __future__ import annotations
 
 import json
 from dataclasses import asdict
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
+from typing import Any
 
 from . import gpus
 from .config import PickerConfig
@@ -46,13 +47,13 @@ def _sort_rank(backend: str) -> int:
     return {"cuda": 0, "rocm": 1, "xpu": 2, "cpu": 3, "default": 4}.get(backend, 5)
 
 
-def build_payload(rows: list[CompatRow]) -> dict:
-    versions: dict[str, dict] = {}
+def build_payload(rows: list[CompatRow]) -> dict[str, Any]:
+    versions: dict[str, dict[str, Any]] = {}
     for r in rows:
-        v = r.torch_version.lower()
-        if "dev" in v or "post" in v:
+        low = r.torch_version.lower()
+        if "dev" in low or "post" in low:
             continue
-        v = versions.setdefault(
+        entry = versions.setdefault(
             r.torch_version,
             {
                 "version": r.torch_version,
@@ -62,7 +63,7 @@ def build_payload(rows: list[CompatRow]) -> dict:
             },
         )
         oses = sorted({p.split("/")[0] for p in r.platforms})
-        v["builds"].append(
+        entry["builds"].append(
             {
                 "key": r.backend + ("-" + r.backend_version if r.backend_version else ""),
                 "backend": r.backend,
@@ -100,7 +101,7 @@ def write_html(
     cfg = config or PickerConfig()
     payload = build_payload(rows)
     gpu_list = [asdict(g) for g in gpus.GPUS]
-    generated = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
+    generated = datetime.now(UTC).strftime("%Y-%m-%d %H:%M UTC")
     html = (
         _TEMPLATE.replace("__DATA__", json.dumps(payload, separators=(",", ":")))
         .replace("__GPUS__", json.dumps(gpu_list, separators=(",", ":")))

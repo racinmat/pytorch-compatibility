@@ -16,6 +16,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field, fields
 from pathlib import Path
+from typing import Any
 
 DEFAULT_REPO_URL = "https://github.com/racinmat/pytorch-compatibility"
 DEFAULT_TABLE_PATH = "data/COMPATIBILITY.md"
@@ -44,7 +45,7 @@ class PickerConfig:
             return self.table_url
         return self.repo_url.rstrip("/") + "/blob/master/" + DEFAULT_TABLE_PATH
 
-    def to_payload(self) -> dict:
+    def to_payload(self) -> dict[str, Any]:
         """The subset the browser JS needs to resolve wheel-index URLs."""
         return {
             "mode": self.mode,

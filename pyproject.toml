@@ -11,7 +11,12 @@ authors = [{ name = "Matěj Račinský", email = "racinsky.matej@seznam.cz" }]
 dependencies = ["pyyaml>=6.0"]
 
 [dependency-groups]
-dev = ["pytest>=8.0"]
+dev = [
+    "mypy>=2.4.0",
+    "pytest>=8.0",
+    "ruff>=0.16.10",
+    "types-pyyaml>=6.0.12.20260906",
+]
 
 [tool.uv]
 # This is an application/tool, not a distributable library, so uv should not try
@@ -20,3 +25,17 @@ package = false
 
 [tool.pytest.ini_options]
 testpaths = ["test_torch_compat.py"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP"]
+# html.py embeds a large JS/CSS template with long lines
+ignore = ["E501"]
+
+[tool.mypy]
+python_version = "3.11"
+files = ["torch_compat", "generate.py", "test_torch_compat.py"]
+strict = true

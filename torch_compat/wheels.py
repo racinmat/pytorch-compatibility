@@ -14,7 +14,9 @@ from __future__ import annotations
 
 import json
 import re
+from collections.abc import Iterable, Iterator
 from dataclasses import asdict, dataclass
+from typing import Any
 from urllib.parse import unquote
 
 from . import sources
@@ -29,12 +31,12 @@ PYPI_JSON_URL = "https://pypi.org/pypi/torch/json"
 # torch-2.0.0-1-cp38-cp38-...whl  (optional PEP 427 build tag "-1")
 _WHEEL_RE = re.compile(
     r"^torch-"
-    r"(?P<version>\d[^+-]*)"           # 2.3.0 / 0.3.0.post4 / 2.6.0.dev20240101
-    r"(?:\+(?P<local>[^-]+))?"          # +cu121 / +cpu / +rocm6.0 / +xpu  (optional)
-    r"(?:-(?P<build>\d[^-]*))?"          # optional build tag (starts with a digit)
-    r"-(?P<pytag>[A-Za-z][^-]*)"       # cp311 / cp313t / cp27 / py3 (starts with a letter)
-    r"-(?P<abitag>[^-]+)"              # cp311 / cp27mu / none / abi3
-    r"-(?P<platform>.+)"              # linux_x86_64 / macosx_11_0_arm64 / manylinux...
+    r"(?P<version>\d[^+-]*)"  # 2.3.0 / 0.3.0.post4 / 2.6.0.dev20240101
+    r"(?:\+(?P<local>[^-]+))?"  # +cu121 / +cpu / +rocm6.0 / +xpu  (optional)
+    r"(?:-(?P<build>\d[^-]*))?"  # optional build tag (starts with a digit)
+    r"-(?P<pytag>[A-Za-z][^-]*)"  # cp311 / cp313t / cp27 / py3 (starts with a letter)
+    r"-(?P<abitag>[^-]+)"  # cp311 / cp27mu / none / abi3
+    r"-(?P<platform>.+)"  # linux_x86_64 / macosx_11_0_arm64 / manylinux...
     r"\.whl$"
 )
 
@@ -42,16 +44,16 @@ _WHEEL_RE = re.compile(
 @dataclass(frozen=True)
 class WheelRow:
     torch_version: str
-    backend: str        # "cpu", "cuda", "rocm", "xpu", or "default"
+    backend: str  # "cpu", "cuda", "rocm", "xpu", or "default"
     backend_version: str  # "12.1" for cuda/rocm; "" otherwise
-    python: str         # "3.11"
-    python_tag: str     # "cp311" / "cp313t"
-    os: str             # "linux" / "windows" / "macos"
-    arch: str           # "x86_64" / "aarch64" / "arm64" / ...
+    python: str  # "3.11"
+    python_tag: str  # "cp311" / "cp313t"
+    os: str  # "linux" / "windows" / "macos"
+    arch: str  # "x86_64" / "aarch64" / "arm64" / ...
     filename: str
-    upload_date: str    # "2024-04-24" (from the index data-upload-time), or ""
+    upload_date: str  # "2024-04-24" (from the index data-upload-time), or ""
 
-    def as_dict(self) -> dict:
+    def as_dict(self) -> dict[str, Any]:
         return asdict(self)
 
 
@@ -99,7 +101,7 @@ _ANCHOR_RE = re.compile(r"<a\s*(?P<attrs>[^>]*)>(?P<name>[^<>]+\.whl)</a>")
 _UPLOAD_RE = re.compile(r'data-upload-time="(?P<ts>[^"]*)"')
 
 
-def _iter_wheels(html: str):
+def _iter_wheels(html: str) -> Iterator[tuple[str, str]]:
     """Yield (filename, upload_date) for each wheel anchor in the index HTML."""
     for m in _ANCHOR_RE.finditer(html):
         name = unquote(m.group("name"))
@@ -153,8 +155,9 @@ def parse_pypi_filenames(payload: str) -> set[str]:
     return names
 
 
-def load_pypi_data(*, force: bool = False) -> dict:
-    return json.loads(sources.fetch(PYPI_JSON_URL, force=force))
+def load_pypi_data(*, force: bool = False) -> dict[str, Any]:
+    data: dict[str, Any] = json.loads(sources.fetch(PYPI_JSON_URL, force=force))
+    return data
 
 
 def load_pypi_filenames(*, force: bool = False) -> set[str]:
@@ -180,7 +183,7 @@ def parse_default_cuda(metadata_text: str) -> str:
     return ""
 
 
-def load_pypi_default_cuda(versions, *, force: bool = False) -> dict[str, str]:
+def load_pypi_default_cuda(versions: Iterable[str], *, force: bool = False) -> dict[str, str]:
     """Map torch version -> CUDA minor of the default Linux x86_64 PyPI wheel.
 
     Reads each version's linux-x86_64 wheel METADATA (PEP 658 ``.metadata`` sidecar) and

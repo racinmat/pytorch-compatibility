@@ -19,6 +19,7 @@ import ast
 import fnmatch
 import re
 from dataclasses import dataclass
+from typing import Any
 
 from . import sources
 
@@ -29,9 +30,9 @@ _RAW = "https://raw.githubusercontent.com"
 
 @dataclass(frozen=True)
 class ArchResult:
-    torch_minor: str        # "2.4"
-    cuda_version: str       # "12.1"
-    arch_list_raw: str      # "5.0;6.0;7.0;7.5;8.0;8.6;9.0"
+    torch_minor: str  # "2.4"
+    cuda_version: str  # "12.1"
+    arch_list_raw: str  # "5.0;6.0;7.0;7.5;8.0;8.6;9.0"
     capabilities: tuple[str, ...]  # ("5.0", "6.0", ...) with +PTX stripped
     has_ptx: bool
     source_url: str
@@ -74,7 +75,12 @@ def candidate_urls(torch_version: str) -> list[str]:
         else ([bld, bld_alt] + tagged + nightly)
     )
     seen: set[str] = set()
-    return [u for u in urls if not (u in seen or seen.add(u))]
+    unique: list[str] = []
+    for u in urls:
+        if u not in seen:
+            seen.add(u)
+            unique.append(u)
+    return unique
 
 
 def resolve_script(torch_version: str, *, force: bool = False) -> tuple[str, str] | None:
@@ -102,7 +108,7 @@ def _extract_rhs(line: str) -> str | None:
     i = line.find(_ASSIGN_MARK)
     if i == -1:
         return None
-    rest = line[i + len(_ASSIGN_MARK):].strip()
+    rest = line[i + len(_ASSIGN_MARK) :].strip()
     rest = re.sub(r";;\s*$", "", rest).strip()
     if not rest:
         return None
@@ -141,9 +147,7 @@ def _split_cases(lines: list[str], case_idx: int) -> list[tuple[list[str], list[
     cases: list[tuple[list[str], list[str]]] = []
     for clause in block.split(";;"):
         # Drop whole-line comments so the label is easy to locate.
-        cleaned = "\n".join(
-            ln for ln in clause.splitlines() if not ln.strip().startswith("#")
-        )
+        cleaned = "\n".join(ln for ln in clause.splitlines() if not ln.strip().startswith("#"))
         paren = cleaned.find(")")
         if paren == -1:
             continue
@@ -163,7 +167,7 @@ def _resolve_value(val: str, cur: str) -> str:
     """Resolve a raw assignment RHS to its value for the default x86_64 python wheel."""
     val = val.replace("${TORCH_CUDA_ARCH_LIST}", cur).replace("$TORCH_CUDA_ARCH_LIST", cur)
 
-    def _sub(match: re.Match) -> str:
+    def _sub(match: re.Match[str]) -> str:
         inner = match.group("inner")
         # `[[ ... ]] && echo "A" || echo "B"` -> default variant takes the `||` branch.
         alt = re.search(r"\|\|\s*echo\s+\"?([^\"]*)\"?", inner)
@@ -216,7 +220,7 @@ def _evaluate_case(script_text: str, cuda_version: str) -> str | None:
     return None
 
 
-def _extract_dict_literal(text: str, name: str) -> dict | None:
+def _extract_dict_literal(text: str, name: str) -> dict[Any, Any] | None:
     """Parse the ``name = { ... }`` dict literal from ``text`` via a brace scan + ast."""
     m = re.search(rf"{re.escape(name)}\s*(?::[^=]+)?=\s*", text)
     if not m:
@@ -232,15 +236,14 @@ def _extract_dict_literal(text: str, name: str) -> dict | None:
             depth -= 1
             if depth == 0:
                 try:
-                    return ast.literal_eval(text[start : i + 1])
+                    result: dict[Any, Any] = ast.literal_eval(text[start : i + 1])
+                    return result
                 except (ValueError, SyntaxError):
                     return None
     return None
 
 
-def _evaluate_python_table(
-    script_text: str, cuda_version: str, arch: str = "x86_64"
-) -> str | None:
+def _evaluate_python_table(script_text: str, cuda_version: str, arch: str = "x86_64") -> str | None:
     """Evaluate the new ``TORCH_CUDA_ARCH_LIST_TABLE`` dict form (release wheel = no +PTX)."""
     table = _extract_dict_literal(script_text, _PY_TABLE_MARK)
     if not table or cuda_version not in table:
@@ -280,9 +283,7 @@ def _to_capabilities(raw: str) -> tuple[tuple[str, ...], bool]:
     return tuple(uniq), has_ptx
 
 
-def arch_result(
-    torch_version: str, cuda_version: str, *, force: bool = False
-) -> ArchResult | None:
+def arch_result(torch_version: str, cuda_version: str, *, force: bool = False) -> ArchResult | None:
     resolved = resolve_script(torch_version, force=force)
     if resolved is None:
         return None

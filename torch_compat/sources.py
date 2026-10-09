@@ -32,7 +32,7 @@ def _missing_path(path: Path) -> Path:
 def _download(url: str) -> str:
     req = urllib.request.Request(url, headers={"User-Agent": _USER_AGENT})
     with urllib.request.urlopen(req, timeout=60) as resp:  # noqa: S310 (trusted hosts)
-        return resp.read().decode("utf-8", errors="replace")
+        return str(resp.read().decode("utf-8", errors="replace"))
 
 
 def fetch(url: str, *, cache_dir: Path | None = None, force: bool = False) -> str:

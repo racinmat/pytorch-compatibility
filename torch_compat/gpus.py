@@ -18,13 +18,13 @@ from dataclasses import dataclass
 @dataclass(frozen=True)
 class Gpu:
     name: str
-    cc: str = ""       # NVIDIA compute capability "major.minor" ("" for AMD)
-    arch: str = ""     # microarchitecture (Ampere, Ada Lovelace, RDNA3, CDNA3, ...)
+    cc: str = ""  # NVIDIA compute capability "major.minor" ("" for AMD)
+    arch: str = ""  # microarchitecture (Ampere, Ada Lovelace, RDNA3, CDNA3, ...)
     segment: str = ""  # consumer | workstation | datacenter | jetson
     vendor: str = "nvidia"
-    gfx: str = ""      # AMD LLVM target, e.g. "gfx1100" ("" for NVIDIA)
-    rocm_min: str = "" # AMD: earliest ROCm release with support ("major.minor")
-    rocm_max: str = "" # AMD: last ROCm release with support ("" = still current)
+    gfx: str = ""  # AMD LLVM target, e.g. "gfx1100" ("" for NVIDIA)
+    rocm_min: str = ""  # AMD: earliest ROCm release with support ("major.minor")
+    rocm_max: str = ""  # AMD: last ROCm release with support ("" = still current)
 
 
 # Documentation sources for the compute-capability / gfx target of each vendor.
@@ -36,10 +36,15 @@ SOURCES = {
 }
 
 
-def _amd(name: str, gfx: str, arch: str, segment: str, rocm_min: str, rocm_max: str = "") -> "Gpu":
+def _amd(name: str, gfx: str, arch: str, segment: str, rocm_min: str, rocm_max: str = "") -> Gpu:
     return Gpu(
-        name=name, arch=arch, segment=segment, vendor="amd",
-        gfx=gfx, rocm_min=rocm_min, rocm_max=rocm_max,
+        name=name,
+        arch=arch,
+        segment=segment,
+        vendor="amd",
+        gfx=gfx,
+        rocm_min=rocm_min,
+        rocm_max=rocm_max,
     )
 
 

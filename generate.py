@@ -23,7 +23,8 @@ import argparse
 import sys
 from pathlib import Path
 
-from torch_compat import arch_lists, config as config_mod, html, table
+from torch_compat import arch_lists, html, table
+from torch_compat import config as config_mod
 
 ROOT = Path(__file__).resolve().parent
 OUT_DIR = ROOT / "data"
@@ -32,9 +33,15 @@ CONFIG_PATH = ROOT / "config.yaml"
 
 
 def main(argv: list[str] | None = None) -> int:
-    parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    parser.add_argument("--force", action="store_true", help="Ignore cache and refetch upstream sources.")
-    parser.add_argument("--out", type=Path, default=OUT_DIR, help="Output directory (default: ./data).")
+    parser = argparse.ArgumentParser(
+        description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter
+    )
+    parser.add_argument(
+        "--force", action="store_true", help="Ignore cache and refetch upstream sources."
+    )
+    parser.add_argument(
+        "--out", type=Path, default=OUT_DIR, help="Output directory (default: ./data)."
+    )
     parser.add_argument(
         "--html-out",
         type=Path,
@@ -80,7 +87,9 @@ def main(argv: list[str] | None = None) -> int:
     if not args.no_html:
         cfg = config_mod.load(args.config)
         if not args.quiet:
-            print(f"Config: {args.config} (mode={cfg.mode}, {len(cfg.index_overrides)} index overrides)")
+            print(
+                f"Config: {args.config} (mode={cfg.mode}, {len(cfg.index_overrides)} index overrides)"
+            )
         html.write_html(rows, args.html_out, config=cfg)
     if not args.quiet:
         print(f"\nDone. {len(rows)} rows ({cuda_rows} CUDA) written to {args.out}")
