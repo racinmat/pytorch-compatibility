@@ -8,12 +8,16 @@ authors = [{ name = "Matěj Račinský", email = "racinsky.matej@seznam.cz" }]
 # Data extraction uses only the Python standard library (urllib). The single
 # third-party dependency is PyYAML, used to read the picker config file; the
 # generated HTML itself stays fully self-contained.
-dependencies = ["pyyaml>=6.0"]
+dependencies = ["pyyaml>=6.0.3"]
+
+[project.urls]
+homepage = "https://github.com/racinmat/pytorch-compatibility"
+repository = "https://github.com/racinmat/pytorch-compatibility"
 
 [dependency-groups]
 dev = [
     "mypy>=2.4.0",
-    "pytest>=8.0",
+    "pytest>=9.1.1",
     "ruff>=0.16.10",
     "types-pyyaml>=6.0.12.20260906",
 ]

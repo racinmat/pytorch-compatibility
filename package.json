@@ -8,6 +8,6 @@
     "test": "node test_html.mjs"
   },
   "devDependencies": {
-    "jsdom": "^26.0.0"
+    "jsdom": "^26.1.0"
   }
 }
